@@ -1,0 +1,27 @@
+﻿using Contracts;
+
+namespace Repository
+{
+    public sealed class RepositoryManager : IRepositoryManager
+    {
+        private readonly RepositoryContext _repositoryContext;
+        private readonly Lazy<ICompanyRepository> _companyRepository;
+        private readonly Lazy<IEmployeeRepository> _employeeRepository;
+        private readonly Lazy<IUniversityRepository> _universityRepository;
+        public RepositoryManager(RepositoryContext repositoryContext)
+        {
+            _repositoryContext = repositoryContext;
+            _companyRepository = new Lazy<ICompanyRepository>(() => new
+            CompanyRepository(repositoryContext));
+            _employeeRepository = new Lazy<IEmployeeRepository>(() => new
+            EmployeeRepository(repositoryContext));
+            _universityRepository = new Lazy<IUniversityRepository>(() => new
+            UniversityRepository(repositoryContext));
+        }
+        public ICompanyRepository Company => _companyRepository.Value;
+        public IEmployeeRepository Employee => _employeeRepository.Value;
+        public IUniversityRepository University => _universityRepository.Value;
+        public async Task SaveAsync() => await _repositoryContext.SaveChangesAsync();
+
+    }
+}

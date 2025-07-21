@@ -1,0 +1,58 @@
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Service.Contracts;
+using Shared.DataTransferObjects;
+using SouqJemla.Presentation.ActionFilters;
+
+namespace MultiVersity.Presentation.Controllers;
+
+[Route("api/universities")]
+[ApiController]
+public class UniversityController : ControllerBase
+{
+    private readonly IServiceManager _service;
+    public UniversityController(IServiceManager service) => _service = service;
+
+    [HttpGet]
+    //[Authorize(Roles = "Manager")]
+    public async Task<IActionResult> GetUniversities()
+    {
+        var universities = await
+        _service.UniversityService.GetAllUniversitiesAsync(trackChanges: false);
+        return Ok(universities);
+    }
+
+    [HttpGet("{id:guid}", Name = "UniversityById")]
+
+    public async Task<IActionResult> GetUniversity(Guid id)
+    {
+        var university = await _service.UniversityService.GetUniversityAsync(id, trackChanges:
+        false);
+        return Ok(university);
+    }
+
+    [HttpPost]
+    [ServiceFilter(typeof(ValidationFilterAttribute))]
+    public async Task<IActionResult> CreateUniversity([FromBody] UniversityForCreationDto university)
+    {
+        var createdUniversity = await _service.UniversityService.CreateUniversityAsync(university);
+        return CreatedAtRoute("UniversityById", new { id = createdUniversity.Id },
+        createdUniversity);
+    }
+
+    [HttpDelete("{id:guid}")]
+    public async Task<IActionResult> DeleteUniversity(Guid id)
+    {
+        await _service.UniversityService.DeleteUniversityAsync(id, trackChanges: false);
+        return NoContent();
+    }
+
+    [HttpPut("{id:guid}")]
+    [ServiceFilter(typeof(ValidationFilterAttribute))]
+    public async Task<IActionResult> UpdateUniversity(Guid id, [FromBody] UniversityForUpdateDto university)
+    {
+        await _service.UniversityService.UpdateUniversityAsync(id, university, trackChanges:
+        true);
+        return NoContent();
+    }
+}
