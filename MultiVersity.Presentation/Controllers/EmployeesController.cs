@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Service.Contracts;
 using Shared.DataTransferObjects;
 using Shared.RequestFeatures;
-using SouqJemla.Presentation.ActionFilters;
+using MultiVersity.Presentation.ActionFilters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +11,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace SouqJemla.Presentation.Controllers
+namespace MultiVersity.Presentation.Controllers
 {
     [Route("api/companies/{companyId}/employees")]
     [ApiController]

@@ -1,11 +1,15 @@
 using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.Extensions.Options;
 using NLog;
-using SouqJemla;
-using SouqJemla.Extensions;
-using SouqJemla.Presentation.ActionFilters;
+using Service.Contracts;
+using Service;
+using MultiVersity.Extensions;
+using MultiVersity;
+using MultiVersity.Presentation.ActionFilters;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,6 +38,13 @@ builder.Services.AddScoped<ValidationFilterAttribute>();
 builder.Services.AddAuthentication();
 builder.Services.ConfigureIdentity();
 builder.Services.ConfigureJWT(builder.Configuration);
+//just for developement in production use redis cache system
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddScoped<IEmailService, EmailService>();
+builder.Services.Configure<DataProtectionTokenProviderOptions>(options =>
+{
+    options.TokenLifespan = TimeSpan.FromMinutes(10);
+});
 
 builder.Services.AddControllers(config => {
     config.InputFormatters.Insert(0, GetJsonPatchInputFormatter());

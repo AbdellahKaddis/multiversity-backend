@@ -14,14 +14,26 @@ namespace Repository.Configuration
             new IdentityRole
             {
                 Id = "1",
-                Name = "Manager",
-                NormalizedName = "MANAGER"
+                Name = "UniversityAdmin",
+                NormalizedName = "UNIVERSITYADMIN"
             },
             new IdentityRole
             {
                 Id = "2",
-                Name = "Administrator",
-                NormalizedName = "ADMINISTRATOR"
+                Name = "FacultyAdmin",
+                NormalizedName = "FACULTYADMIN"
+            },
+            new IdentityRole
+            {
+                Id = "3",
+                Name = "Professor",
+                NormalizedName = "PROFESSOR"
+            },
+            new IdentityRole
+            {
+                Id = "4",
+                Name = "Student",
+                NormalizedName = "STUDENT"
             }
             );
         }

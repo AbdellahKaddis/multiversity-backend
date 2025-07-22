@@ -2,7 +2,7 @@
 using Entities.Models;
 using Shared.DataTransferObjects;
 
-namespace SouqJemla
+namespace MultiVersity
 {
     public class MappingProfile : Profile
     {
@@ -17,7 +17,7 @@ namespace SouqJemla
             CreateMap<EmployeeForCreationDto, Employee>();
          
             CreateMap<EmployeeForUpdateDto, Employee>().ReverseMap();
-            CreateMap<UserForRegistrationDto, User>();
+            CreateMap<UniversityAdminForRegistrationDto, User>();
         }
     }
 

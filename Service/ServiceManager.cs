@@ -2,6 +2,7 @@
 using Contracts;
 using Entities.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Configuration;
 using Service.Contracts;
 
@@ -11,11 +12,11 @@ namespace Service
     {
         private readonly Lazy<ICompanyService> _companyService;
         private readonly Lazy<IEmployeeService> _employeeService;
-        private readonly Lazy<IAuthenticationService> _authenticationService;
+        private readonly Lazy<IAuthService> _authenticationService;
         private readonly Lazy<IUniversityService> _universityService;
 
         public ServiceManager(IRepositoryManager repositoryManager, ILoggerManager
-        logger, IMapper mapper, UserManager<User> userManager, IConfiguration configuration)
+        logger, IMapper mapper, UserManager<User> userManager, IConfiguration configuration,IEmailService emailService, IDistributedCache cache)
         {
             _companyService = new Lazy<ICompanyService>(() => new
             CompanyService(repositoryManager, logger, mapper));
@@ -23,15 +24,15 @@ namespace Service
             _employeeService = new Lazy<IEmployeeService>(() => new
             EmployeeService(repositoryManager, logger, mapper));
 
-            _authenticationService = new Lazy<IAuthenticationService>(() => 
-            new AuthenticationService(logger, mapper, userManager, configuration));
+            _authenticationService = new Lazy<IAuthService>(() => 
+            new AuthService(logger, mapper, userManager, configuration, emailService,cache));
 
             _universityService = new Lazy<IUniversityService>(() =>
          new UniversityService(repositoryManager, logger, mapper));
         }
         public ICompanyService CompanyService => _companyService.Value;
         public IEmployeeService EmployeeService => _employeeService.Value;
-        public IAuthenticationService AuthenticationService => 
+        public IAuthService AuthenticationService => 
             _authenticationService.Value;
         public IUniversityService UniversityService => _universityService.Value;
     }

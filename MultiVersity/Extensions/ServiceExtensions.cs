@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
-namespace SouqJemla.Extensions;
+namespace MultiVersity.Extensions;
 public static class ServiceExtensions
 {
     public static void ConfigureCors(this IServiceCollection services) =>
@@ -37,11 +37,13 @@ public static class ServiceExtensions
     {
         var builder = services.AddIdentity<User, IdentityRole>(o =>
         {
+            o.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+
+            o.Password.RequiredLength = 8;
             o.Password.RequireDigit = true;
-            o.Password.RequireLowercase = false;
-            o.Password.RequireUppercase = false;
-            o.Password.RequireNonAlphanumeric = false;
-            o.Password.RequiredLength = 10;
+            o.Password.RequireLowercase = true;
+            o.Password.RequireUppercase = true;
+            o.Password.RequireNonAlphanumeric = true;
             o.User.RequireUniqueEmail = true;
         })
         .AddEntityFrameworkStores<RepositoryContext>()

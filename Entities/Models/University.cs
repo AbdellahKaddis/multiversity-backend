@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using static System.Formats.Asn1.AsnWriter;
 
 namespace Entities.Models;
 
@@ -24,5 +25,7 @@ public class University
     public int? YearEstablished { get; set;}
     public string? LogoUrl { get; set; }
     public string? Description { get; set;}
+
+    public ICollection<User>? Users { get; set; }
 }
 

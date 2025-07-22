@@ -4,7 +4,9 @@ using Microsoft.AspNetCore.Diagnostics;
 using System.Net;
 using System;
 using Entities.Exceptions;
-namespace SouqJemla
+using Microsoft.Data.SqlClient;
+using System.Text.RegularExpressions;
+namespace MultiVersity
 {
     public class GlobalExceptionHandler : IExceptionHandler
     {
@@ -18,7 +20,10 @@ namespace SouqJemla
         {
 
             httpContext.Response.ContentType = "application/json";
+     
+
             var contextFeature = httpContext.Features.Get<IExceptionHandlerFeature>();
+
             if (contextFeature != null)
             {
                 httpContext.Response.StatusCode = contextFeature.Error switch
@@ -36,5 +41,6 @@ namespace SouqJemla
             }
             return true;
         }
+       
     }
 }

@@ -5,7 +5,7 @@ using Repository.Configuration;
 
 namespace Repository
 {
-    public class RepositoryContext : DbContext
+    public class RepositoryContext : IdentityDbContext<User>
     {
         public RepositoryContext(DbContextOptions options)
         : base(options)
@@ -16,9 +16,24 @@ namespace Repository
         {
             base.OnModelCreating(modelBuilder);
 
-           // modelBuilder.ApplyConfiguration(new RoleConfiguration());
-        }
+           modelBuilder.ApplyConfiguration(new RoleConfiguration());
 
+            modelBuilder.Entity<University>()
+    .HasMany(u => u.Users)
+    .WithOne(u => u.University)
+    .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<University>()
+            .HasIndex(u => u.Name)
+            .IsUnique();
+
+            modelBuilder.Entity<University>()
+            .HasIndex(u => u.Email)
+            .IsUnique();
+            modelBuilder.Entity<University>()
+.HasIndex(u => u.PhoneNumber)
+.IsUnique();
+        }
         public DbSet<University>? Universities { get; set; }
     }
 }

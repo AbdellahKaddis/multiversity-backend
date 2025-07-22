@@ -1,6 +1,7 @@
 ﻿using Contracts;
 using Entities.Models;
 using Microsoft.EntityFrameworkCore;
+using Shared.DataTransferObjects;
 
 namespace Repository;
 public class UniversityRepository : RepositoryBase<University>, IUniversityRepository
@@ -31,4 +32,40 @@ public class UniversityRepository : RepositoryBase<University>, IUniversityRepos
         return await FindByCondition(u => u.Id.Equals(univeristyId), trackChanges)
             .SingleOrDefaultAsync();
     }
+    public async Task<bool> EmailExistsAsync(string email)
+    {
+        return await FindByCondition(u => u.Email == email, false)
+            .AnyAsync();
+    }
+
+    public async Task<bool> NameExistsAsync(string name)
+    {
+        return await FindByCondition(u => u.Name == name, false)
+            .AnyAsync();
+    }
+
+    public async Task<bool> PhoneNumberExistsAsync(string phoneNumber)
+    {
+        return await FindByCondition(u => u.PhoneNumber == phoneNumber, false)
+            .AnyAsync();
+    }
+    public async Task<List<string>> CheckForDuplicatesAsync(
+       string email,
+       string name,
+       string phoneNumber)
+    {
+        var duplicateFields = new List<string>();
+
+        if (await EmailExistsAsync(email))
+            duplicateFields.Add(nameof(University.Email));
+
+        if (await NameExistsAsync(name))
+            duplicateFields.Add(nameof(University.Name));
+
+        if (await PhoneNumberExistsAsync(phoneNumber))
+            duplicateFields.Add(nameof(University.PhoneNumber));
+
+        return duplicateFields;
+    }
 }
+

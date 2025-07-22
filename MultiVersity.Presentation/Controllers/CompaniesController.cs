@@ -2,9 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Service.Contracts;
 using Shared.DataTransferObjects;
-using SouqJemla.Presentation.ActionFilters;
+using MultiVersity.Presentation.ActionFilters;
 using SouqJemla.Presentation.ModelBinders;
-namespace SouqJemla.Presentation.Controllers
+namespace MultiVersity.Presentation.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

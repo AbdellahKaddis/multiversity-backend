@@ -5,6 +5,7 @@ namespace Shared.DataTransferObjects;
 public record UniversityForManipulationDto
 {
     [Required(ErrorMessage = "Name is a required field.")]
+
     public string? Name { get; init; }
     public string? Abbreviation { get; init; }
 

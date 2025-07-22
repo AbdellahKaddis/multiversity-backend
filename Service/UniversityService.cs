@@ -24,6 +24,17 @@ public class UniversityService : IUniversityService
     {
         var universityEntity = _mapper.Map<University>(university);
 
+        var duplicateFields = await _repository.University.CheckForDuplicatesAsync(
+    university.Email,
+    university.Name,
+    university.PhoneNumber);
+
+        if (duplicateFields.Any())
+        {
+            _logger.LogWarn($"Duplicate university fields: {string.Join(", ", duplicateFields)}");
+            throw new DuplicateValueException(duplicateFields);
+        }
+
         _repository.University.CreateUniversity(universityEntity);
         await _repository.SaveAsync();
 
@@ -72,4 +83,5 @@ public class UniversityService : IUniversityService
 
         return university;
     }
+   
 }
