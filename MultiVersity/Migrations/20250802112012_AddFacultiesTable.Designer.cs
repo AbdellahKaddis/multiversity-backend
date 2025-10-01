@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Repository;
 
@@ -11,9 +12,11 @@ using Repository;
 namespace MultiVersity.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    partial class RepositoryContextModelSnapshot : ModelSnapshot
+    [Migration("20250802112012_AddFacultiesTable")]
+    partial class AddFacultiesTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -93,10 +96,6 @@ namespace MultiVersity.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("AdminId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<string>("City")
                         .HasColumnType("nvarchar(max)");
 
@@ -125,9 +124,6 @@ namespace MultiVersity.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AdminId")
-                        .IsUnique();
 
                     b.HasIndex("Email")
                         .IsUnique();
@@ -200,6 +196,9 @@ namespace MultiVersity.Migrations
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
 
+                    b.Property<Guid>("UniversityId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -213,6 +212,8 @@ namespace MultiVersity.Migrations
                         .IsUnique()
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.HasIndex("UniversityId");
 
                     b.ToTable("AspNetUsers", (string)null);
                 });
@@ -400,15 +401,15 @@ namespace MultiVersity.Migrations
                     b.Navigation("University");
                 });
 
-            modelBuilder.Entity("Entities.Models.University", b =>
+            modelBuilder.Entity("Entities.Models.User", b =>
                 {
-                    b.HasOne("Entities.Models.User", "Admin")
-                        .WithOne("University")
-                        .HasForeignKey("Entities.Models.University", "AdminId")
+                    b.HasOne("Entities.Models.University", "University")
+                        .WithMany("Users")
+                        .HasForeignKey("UniversityId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("Admin");
+                    b.Navigation("University");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -465,14 +466,13 @@ namespace MultiVersity.Migrations
             modelBuilder.Entity("Entities.Models.University", b =>
                 {
                     b.Navigation("Faculties");
+
+                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("Entities.Models.User", b =>
                 {
                     b.Navigation("Faculty")
-                        .IsRequired();
-
-                    b.Navigation("University")
                         .IsRequired();
                 });
 #pragma warning restore 612, 618

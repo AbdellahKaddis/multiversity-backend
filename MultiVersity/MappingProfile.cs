@@ -12,6 +12,10 @@ namespace MultiVersity
             CreateMap<UniversityForUpdateDto, University>();
             CreateMap<UniversityForCreationDto, University>();
 
+            CreateMap<FacultyForCreationDto, Faculty>();
+            CreateMap<Faculty, FacultyDto>();
+            CreateMap<FacultyForUpdateDto, Faculty>();
+
             CreateMap<Employee, EmployeeDto>();
 
             CreateMap<EmployeeForCreationDto, Employee>();

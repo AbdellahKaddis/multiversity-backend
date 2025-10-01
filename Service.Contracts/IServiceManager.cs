@@ -7,6 +7,6 @@ namespace Service.Contracts
         IEmployeeService EmployeeService { get; }
         IAuthService AuthenticationService { get; }
         IUniversityService UniversityService { get; }
-
+        IFacultyService FacultyService { get; }
     }
 }

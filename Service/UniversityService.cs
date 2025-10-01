@@ -75,6 +75,19 @@ public class UniversityService : IUniversityService
         _mapper.Map(universityForUpdate, university);
         await _repository.SaveAsync();
     }
+    public async Task CheckForDuplicatesAsync(string email, string name,string? phoneNumber=null)
+    {
+        var result = await _repository.University.CheckForDuplicatesAsync(email, name, phoneNumber);
+        if (result.Count != 0)
+            throw new UniversityDuplicateValuesBadRequestException("duplicate values for " + string.Join(" and ", result));
+    }
+    public async Task<UniversityDto> GetUniversityByAdminIdAsync(string adminId, bool trackChanges)
+    {
+        var university = await _repository.University.GetUniversityByAdminIdAsync(adminId, trackChanges);
+        //check if it's null throw an exception
+        var universityDto = _mapper.Map<UniversityDto>(university);
+        return universityDto;
+    }
     private async Task<University> GetUniversityAndCheckIfItExists(Guid id, bool trackChanges)
     {
         var university = await _repository.University.GetUniversityAsync(id, trackChanges);

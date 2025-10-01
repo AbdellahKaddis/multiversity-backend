@@ -24,8 +24,6 @@ namespace Shared.DataTransferObjects
         [Required(ErrorMessage = "Password is required")]
         public string? Password { get; init; }
 
-        [Required(ErrorMessage = "UniversityId is required")]
-        public Guid? UniversityId { get; set; }
     }
 
 }

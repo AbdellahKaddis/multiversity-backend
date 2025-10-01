@@ -32,6 +32,12 @@ public class UniversityRepository : RepositoryBase<University>, IUniversityRepos
         return await FindByCondition(u => u.Id.Equals(univeristyId), trackChanges)
             .SingleOrDefaultAsync();
     }
+    public async Task<University> GetUniversityByAdminIdAsync(string adminId, bool trackChanges)
+    {
+        return await FindByCondition(u => u.AdminId.Equals(adminId), trackChanges)
+            .SingleOrDefaultAsync();
+    }
+
     public async Task<bool> EmailExistsAsync(string email)
     {
         return await FindByCondition(u => u.Email == email, false)
@@ -44,15 +50,15 @@ public class UniversityRepository : RepositoryBase<University>, IUniversityRepos
             .AnyAsync();
     }
 
-    public async Task<bool> PhoneNumberExistsAsync(string phoneNumber)
+    public async Task<bool> PhoneNumberExistsAsync(string? phoneNumber)
     {
-        return await FindByCondition(u => u.PhoneNumber == phoneNumber, false)
+        return await FindByCondition(u => u.PhoneNumber != null && u.PhoneNumber == phoneNumber, false)
             .AnyAsync();
     }
     public async Task<List<string>> CheckForDuplicatesAsync(
        string email,
        string name,
-       string phoneNumber)
+       string? phoneNumber)
     {
         var duplicateFields = new List<string>();
 

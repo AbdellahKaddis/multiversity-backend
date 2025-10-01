@@ -40,7 +40,7 @@ public class AuthService : IAuthService
         _emailService = emailService;
         _cache = cache;
     }
-    public async Task<IdentityResult> RegisterUniversityAdmin(UniversityAdminForRegistrationDto
+    public async Task<(IdentityResult Result, string? UserId)> RegisterUniversityAdmin(UniversityAdminForRegistrationDto
         UniversityAdminForRegistrationDto)
     {
         var user = _mapper.Map<User>(UniversityAdminForRegistrationDto);
@@ -51,9 +51,12 @@ public class AuthService : IAuthService
         IEnumerable<string> roles = ["UniversityAdmin"];
 
         if (result.Succeeded)
+        {
             await _userManager.AddToRolesAsync(user, roles);
+            return (result, user.Id);
+        }
 
-        return result;
+        return (result, null);
     }
     public async Task<bool> ValidateUser(UserForAuthenticationDto userForAuth)
     {
@@ -156,12 +159,13 @@ public class AuthService : IAuthService
     {
         var claims = new List<Claim>
         {
-            new Claim(ClaimTypes.Name, _user.UserName)
+            new Claim(JwtRegisteredClaimNames.Sub, _user.Id),
+            new Claim("name", $"{_user.FirstName} {_user.LastName}")
         };
         var roles = await _userManager.GetRolesAsync(_user);
         foreach (var role in roles)
         {
-            claims.Add(new Claim(ClaimTypes.Role, role));
+            claims.Add(new Claim("role", role));
         }
         return claims;
     }

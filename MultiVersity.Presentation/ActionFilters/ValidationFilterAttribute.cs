@@ -1,10 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MultiVersity.Presentation.ActionFilters;
 
@@ -18,9 +13,13 @@ public class ValidationFilterAttribute : IActionFilter
         var controller = context.RouteData.Values["controller"];
         var param = context.ActionArguments
         .SingleOrDefault(x => x.Value.ToString().Contains("Dto")).Value;
+        //foreach (var p in context.ActionArguments)
+        //{
+        //    Console.WriteLine($"Key : {p.Key}, Value : {p.Value.ToString()}.");
+        //}
         if (param is null)
         {
-            context.Result = new BadRequestObjectResult($"Object is null. Controller: { controller }, action: { action}");
+            context.Result = new BadRequestObjectResult($"Object is null. Controller: {controller}, action: {action}");
             return;
         }
         if (!context.ModelState.IsValid)

@@ -34,6 +34,12 @@ namespace Repository.Configuration
                 Id = "4",
                 Name = "Student",
                 NormalizedName = "STUDENT"
+            },
+            new IdentityRole
+            {
+                Id = "5",
+                Name = "Dean",
+                NormalizedName = "DEAN"
             }
             );
         }

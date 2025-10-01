@@ -10,4 +10,10 @@ public interface IUniversityService
     Task DeleteUniversityAsync(Guid universityId, bool trackChanges);
     Task UpdateUniversityAsync(Guid universityId, UniversityForUpdateDto universityForUpdate,
     bool trackChanges);
+
+    Task CheckForDuplicatesAsync(
+       string email,
+       string name,
+       string? phoneNumber);
+    Task<UniversityDto> GetUniversityByAdminIdAsync(string adminId, bool trackChanges);
 }

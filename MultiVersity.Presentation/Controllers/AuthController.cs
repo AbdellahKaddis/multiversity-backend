@@ -22,7 +22,7 @@ namespace MultiVersity.Presentation.Controllers
         public async Task<IActionResult> RegisterUniversityAdmin([FromBody] UniversityAdminForRegistrationDto
             universtyAdminForRegistration)
         {
-            var result = await
+            var (result, userId) = await
             _service.AuthenticationService.RegisterUniversityAdmin(universtyAdminForRegistration);
             if (!result.Succeeded)
             {
@@ -32,7 +32,7 @@ namespace MultiVersity.Presentation.Controllers
                 }
                 return BadRequest(ModelState);
             }
-            return StatusCode(201);
+            return StatusCode(201,new {adminId = userId});
         }
 
         [HttpPost("login")]

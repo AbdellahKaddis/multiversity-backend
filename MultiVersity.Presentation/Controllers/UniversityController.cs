@@ -55,4 +55,20 @@ public class UniversityController : ControllerBase
         true);
         return NoContent();
     }
+    [HttpGet("{email}/{name}")]
+    public async Task<IActionResult> CheckForDuplicatesAsync(string email, string name)
+    {
+        await _service.UniversityService.CheckForDuplicatesAsync(email, name, null);
+        return Ok();
+    }
+
+
+    [HttpGet("/api/admins/{adminId}/university")]
+
+    public async Task<IActionResult> GetUniversityByAdminId(string adminId)
+    {
+        var university = await _service.UniversityService.GetUniversityByAdminIdAsync(adminId, trackChanges:
+        false);
+        return Ok(university);
+    }
 }

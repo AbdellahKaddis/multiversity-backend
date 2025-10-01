@@ -22,10 +22,14 @@ public class University
     public string? Email { get; set; }
     [Phone]
     public string? PhoneNumber { get; set; }
-    public int? YearEstablished { get; set;}
+    public int? YearEstablished { get; set; }
     public string? LogoUrl { get; set; }
-    public string? Description { get; set;}
+    public string? Description { get; set; }
 
-    public ICollection<User>? Users { get; set; }
+    [Required(ErrorMessage = "Admin Id is a required field.")]
+    [ForeignKey("UniversityAdminId")]
+    public string? AdminId {get; set;}
+    public User Admin { get; set; }
+    public ICollection<Faculty>? Faculties { get; set; }
 }
 

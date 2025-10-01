@@ -1,4 +1,6 @@
-﻿namespace Shared.DataTransferObjects;
+﻿using System.ComponentModel.DataAnnotations;
 
-public record UniversityForCreationDto : UniversityForManipulationDto;
+namespace Shared.DataTransferObjects;
+
+public record UniversityForCreationDto([Required(ErrorMessage = "Admin Id is a required field.")]string? AdminId ) : UniversityForManipulationDto;
 

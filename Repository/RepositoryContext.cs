@@ -19,9 +19,10 @@ namespace Repository
            modelBuilder.ApplyConfiguration(new RoleConfiguration());
 
             modelBuilder.Entity<University>()
-    .HasMany(u => u.Users)
-    .WithOne(u => u.University)
-    .OnDelete(DeleteBehavior.Restrict);
+            .HasOne(u => u.Admin)
+            .WithOne(u => u.University)
+            .HasForeignKey<University>(u => u.AdminId)
+            .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<University>()
             .HasIndex(u => u.Name)
@@ -30,10 +31,24 @@ namespace Repository
             modelBuilder.Entity<University>()
             .HasIndex(u => u.Email)
             .IsUnique();
+
             modelBuilder.Entity<University>()
-.HasIndex(u => u.PhoneNumber)
-.IsUnique();
+            .HasIndex(u => u.PhoneNumber)
+            .IsUnique();
+
+            modelBuilder.Entity<University>()
+                .HasMany(u => u.Faculties)
+                .WithOne(f => f.University)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Faculty>()
+            .HasOne(f => f.Dean)
+            .WithOne(u => u.Faculty)
+            .HasForeignKey<Faculty>(f => f.DeanId)
+            .OnDelete(DeleteBehavior.Restrict);
+
         }
         public DbSet<University>? Universities { get; set; }
+        public DbSet<Faculty>? Faculties { get; set; }
     }
 }

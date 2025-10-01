@@ -14,5 +14,6 @@ public record UniversityDto
     string? PhoneNumber,
     int? YearEstablished,
     string? LogoUrl,
-    string? Description);
+    string? Description,
+    string? AdminId);
 

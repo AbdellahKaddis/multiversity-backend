@@ -15,5 +15,6 @@ public interface IUniversityRepository
     Task<List<string>> CheckForDuplicatesAsync(
        string email,
        string name,
-       string phoneNumber);
+       string? phoneNumber);
+    Task<University> GetUniversityByAdminIdAsync(string adminId, bool trackChanges);
 }

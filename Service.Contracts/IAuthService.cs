@@ -6,7 +6,7 @@ namespace Service.Contracts;
 
 public interface IAuthService
 {
-    Task<IdentityResult> RegisterUniversityAdmin(UniversityAdminForRegistrationDto dto);
+    Task<(IdentityResult Result, string? UserId)> RegisterUniversityAdmin(UniversityAdminForRegistrationDto dto);
     Task<bool> ValidateUser(UserForAuthenticationDto userForAuth);
     Task<string> CreateToken();
     Task<bool> CheckEmailExistsAsync(string email);

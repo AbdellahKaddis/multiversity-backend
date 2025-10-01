@@ -17,10 +17,9 @@ namespace Entities.Models
         //[Required(ErrorMessage = "IsActive is a required field.")]
         //public bool IsActive { get; set; }
 
-        [Required(ErrorMessage = "UniversityId is a required field.")]
-        public Guid UniversityId { get; set; }
         public University University { get; set; }
 
+        public Faculty Faculty { get; set; }
         public User()
         {
             UserName = Email;
