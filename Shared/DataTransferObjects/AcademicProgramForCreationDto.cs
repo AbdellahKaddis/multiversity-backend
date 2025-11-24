@@ -1,0 +1,2 @@
+﻿namespace Shared.DataTransferObjects;
+public record AcademicProgramForCreationDto : AcademicProgramForManipulationDto;
