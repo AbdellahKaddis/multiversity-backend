@@ -35,6 +35,24 @@ namespace MultiVersity.Presentation.Controllers
             return StatusCode(201,new {adminId = userId});
         }
 
+        [HttpPost("register/faculty-dean")]
+        [ServiceFilter(typeof(ValidationFilterAttribute))]
+        public async Task<IActionResult> RegisterFacultyDean([FromBody] FacultyDeanForRegistrationDto
+            facultyDeanForRegistration)
+        {
+            var (result, userId) = await
+            _service.AuthenticationService.RegisterFacultyDean(facultyDeanForRegistration);
+            if (!result.Succeeded)
+            {
+                foreach (var error in result.Errors)
+                {
+                    ModelState.TryAddModelError(error.Code, error.Description);
+                }
+                return BadRequest(ModelState);
+            }
+            return StatusCode(201, new { deanId = userId });
+        }
+
         [HttpPost("login")]
         [ServiceFilter(typeof(ValidationFilterAttribute))]
         public async Task<IActionResult> Authenticate([FromBody] UserForAuthenticationDto

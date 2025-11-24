@@ -16,6 +16,7 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using System.Xml.Linq;
+using System.Xml.XPath;
 
 
 
@@ -48,11 +49,11 @@ public class AuthService : IAuthService
         user.EmailConfirmed = true;
         var result = await _userManager.CreateAsync(user, UniversityAdminForRegistrationDto.Password);
 
-        IEnumerable<string> roles = ["UniversityAdmin"];
+        string role = "UniversityAdmin";
 
         if (result.Succeeded)
         {
-            await _userManager.AddToRolesAsync(user, roles);
+            await _userManager.AddToRoleAsync(user, role);
             return (result, user.Id);
         }
 
@@ -182,5 +183,21 @@ public class AuthService : IAuthService
         signingCredentials: signingCredentials
         );
         return tokenOptions;
+    }
+
+    public async Task<(IdentityResult Result, string? UserId)> RegisterFacultyDean(FacultyDeanForRegistrationDto deanForRegistrationDto)
+    {
+        var user = _mapper.Map<User>(deanForRegistrationDto);
+        user.UserName = deanForRegistrationDto.Email;
+
+        var result = await _userManager.CreateAsync(user);
+
+        string role = "Dean";
+        if (result.Succeeded)
+        {
+            await _userManager.AddToRoleAsync(user, role);
+            return (result, user.Id);
+        }
+        return (result, null);
     }
 }
