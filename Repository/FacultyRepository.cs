@@ -24,6 +24,7 @@ public class FacultyRepository : RepositoryBase<Faculty>, IFacultyRepository
     {
         return await FindByCondition(f => f.UniversityId.Equals(universityId),
             trackChanges)
+            .Include(f => f.Dean)
             .ToListAsync();
     }
 
@@ -31,6 +32,17 @@ public class FacultyRepository : RepositoryBase<Faculty>, IFacultyRepository
     {
         return await FindByCondition(f => f.UniversityId.Equals(universityId) && f.Id.Equals(id),
             trackChanges)
+            .SingleOrDefaultAsync();
+    }
+    public async Task<Faculty> GetFacultyAsync(Guid? id, bool trackChanges)
+    {
+        return await FindByCondition(f => f.Id.Equals(id),
+            trackChanges)
+            .SingleOrDefaultAsync();
+    }
+    public async Task<Faculty> GetFacultyByDeanIdAsync(string deanId, bool trackChanges)
+    {
+        return await FindByCondition(f => f.DeanId.Equals(deanId), trackChanges)
             .SingleOrDefaultAsync();
     }
 }

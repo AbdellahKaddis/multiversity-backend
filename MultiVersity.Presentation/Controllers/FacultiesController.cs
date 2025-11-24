@@ -9,10 +9,10 @@ namespace MultiVersity.Presentation.Controllers;
 
 [Route("api/universities/{universityId}/faculties")]
 [ApiController]
-public class FacultyController : ControllerBase
+public class FacultiesController : ControllerBase
 {
     private readonly IServiceManager _service;
-    public FacultyController(IServiceManager service)
+    public FacultiesController(IServiceManager service)
     {
         _service = service;
     }
@@ -29,9 +29,9 @@ public class FacultyController : ControllerBase
 
     public async Task<IActionResult> GetFacultyForUniversity(Guid universityId, Guid id)
     {
-        var employee = await _service.FacultyService.GetFacultyAsync(universityId, id,
+        var faculty = await _service.FacultyService.GetFacultyAsync(universityId, id,
         trackChanges: false);
-        return Ok(employee);
+        return Ok(faculty);
     }
 
     [HttpPost]
@@ -67,5 +67,14 @@ public class FacultyController : ControllerBase
         await _service.FacultyService.UpdateFacultyForUniversityAsync(universityId, id, faculty,
          uniTrackChanges: false, facTrackChanges: true);
         return NoContent();
+    }
+
+    [HttpGet("/api/deans/{deanId}/faculty")]
+
+    public async Task<IActionResult> GetUniversityByAdminId(string deanId)
+    {
+        var faculty = await _service.FacultyService.GetFacultyByDeanIdAsync(deanId, trackChanges:
+        false);
+        return Ok(faculty);
     }
 }

@@ -14,5 +14,6 @@ public interface IFacultyService
     Task UpdateFacultyForUniversityAsync(Guid universityId, Guid id,
     FacultyForUpdateDto facultyForUpdate, bool uniTrackChanges, bool
     facTrackChanges);
+    Task<FacultyDto> GetFacultyByDeanIdAsync(string deanId, bool trackChanges);
 
 }

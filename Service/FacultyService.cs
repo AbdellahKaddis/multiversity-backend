@@ -73,6 +73,15 @@ public class FacultyService : IFacultyService
         _mapper.Map(facultyForUpdate, facultyEntity);
         await _repository.SaveAsync();
     }
+    public async Task<FacultyDto> GetFacultyByDeanIdAsync(string deanId, bool trackChanges)
+    {
+        var facultyEntity = await _repository.Faculty.GetFacultyByDeanIdAsync(deanId, trackChanges);
+        if (facultyEntity is null)
+            throw new DeanForFacultyNotFoundException(deanId);
+
+        var facultyDto = _mapper.Map<FacultyDto>(facultyEntity);
+        return facultyDto;
+    }
     private async Task CheckIfUniversityExists(Guid universityId, bool trackChanges)
     {
         var university = await _repository.University.GetUniversityAsync(universityId, trackChanges);
