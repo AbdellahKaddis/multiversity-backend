@@ -41,5 +41,6 @@ public class Faculty
 
     public ICollection<Department>? Departments { get; set; }
     public ICollection<Course>? Courses { get; set; }
+    public ICollection<Professor>? Professors { get; set; }
 }
 

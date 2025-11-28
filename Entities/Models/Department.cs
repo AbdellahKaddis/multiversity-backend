@@ -23,6 +23,6 @@ public class Department
     public Guid FacultyId { get; set; }
     public Faculty Faculty { get; set; }
     public ICollection<AcademicProgram>? Programs { get; set; }
-    public ICollection<User>? Professors { get; set; }
+    public ICollection<Professor>? Professors { get; set; }
 
 }

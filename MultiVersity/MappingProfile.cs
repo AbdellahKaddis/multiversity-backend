@@ -17,11 +17,7 @@ namespace MultiVersity
             opt => opt.MapFrom(x => string.Join(' ', x.Dean.FirstName, x.Dean.LastName)));
             CreateMap<FacultyForUpdateDto, Faculty>();
 
-            CreateMap<Employee, EmployeeDto>();
 
-            CreateMap<EmployeeForCreationDto, Employee>();
-         
-            CreateMap<EmployeeForUpdateDto, Employee>().ReverseMap();
             CreateMap<UniversityAdminForRegistrationDto, User>();
 
             CreateMap<FacultyDeanForRegistrationDto, User>();

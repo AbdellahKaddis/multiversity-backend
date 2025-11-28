@@ -31,5 +31,6 @@ public class University
     public string? AdminId {get; set;}
     public User Admin { get; set; }
     public ICollection<Faculty>? Faculties { get; set; }
+    public ICollection<Degree>? Degrees { get; set; }
 }
 

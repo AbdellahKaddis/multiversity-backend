@@ -88,11 +88,25 @@ public class RepositoryContext : IdentityDbContext<User>
             .WithOne(c => c.Faculty)
             .OnDelete(DeleteBehavior.Restrict);
 
+        modelBuilder.Entity<Professor>()
+.HasKey(p => p.Id);
+
+        modelBuilder.Entity<Professor>()
+            .HasOne(p => p.User)
+            .WithOne(u => u.Professor)
+            .HasForeignKey<Professor>(p => p.Id)
+             .OnDelete(DeleteBehavior.Restrict); 
 
         modelBuilder.Entity<Department>()
   .HasMany(d => d.Professors)
   .WithOne(p => p.Department)
   .OnDelete(DeleteBehavior.Restrict);
+
+
+        modelBuilder.Entity<Faculty>()
+            .HasMany(c => c.Professors)
+            .WithOne(p => p.Faculty)
+            .OnDelete(DeleteBehavior.Restrict);
 
         modelBuilder.Entity<ProfessorCourse>()
             .HasKey(pc => pc.Id);
@@ -108,6 +122,8 @@ public class RepositoryContext : IdentityDbContext<User>
             .WithMany(p => p.ProfessorCourses)
             .HasForeignKey(pc => pc.ProfessorId)
             .OnDelete(DeleteBehavior.Restrict);
+
+  
     }
     public DbSet<University>? Universities { get; set; }
     public DbSet<Faculty>? Faculties { get; set; }
@@ -118,4 +134,5 @@ public class RepositoryContext : IdentityDbContext<User>
     public DbSet<Course>? Courses { get; set; }
     public DbSet<ProgramCourse>? ProgramCourses { get; set; }
     public DbSet<ProfessorCourse>? ProfessorCourses { get; set; }
+    public DbSet<Professor>? Professors { get; set; }
 }

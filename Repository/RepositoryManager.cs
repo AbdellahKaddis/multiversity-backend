@@ -5,8 +5,6 @@ namespace Repository
     public sealed class RepositoryManager : IRepositoryManager
     {
         private readonly RepositoryContext _repositoryContext;
-        private readonly Lazy<ICompanyRepository> _companyRepository;
-        private readonly Lazy<IEmployeeRepository> _employeeRepository;
         private readonly Lazy<IUniversityRepository> _universityRepository;
         private readonly Lazy<IFacultyRepository> _facultyRepository;
         private readonly Lazy<IDepartmentRepository> _departmentRepository;
@@ -16,12 +14,7 @@ namespace Repository
         private readonly Lazy<IProgramCourseRepository> _programCourseRepository;
         public RepositoryManager(RepositoryContext repositoryContext)
         {
-            _repositoryContext = repositoryContext;
-            _companyRepository = new Lazy<ICompanyRepository>(() => new
-            CompanyRepository(repositoryContext));
-
-            _employeeRepository = new Lazy<IEmployeeRepository>(() => new
-            EmployeeRepository(repositoryContext));
+   
 
             _universityRepository = new Lazy<IUniversityRepository>(() => new
             UniversityRepository(repositoryContext));
@@ -44,8 +37,7 @@ namespace Repository
             _programCourseRepository = new Lazy<IProgramCourseRepository>(() => new
             ProgramCourseRepository(repositoryContext));
         }
-        public ICompanyRepository Company => _companyRepository.Value;
-        public IEmployeeRepository Employee => _employeeRepository.Value;
+
         public IUniversityRepository University => _universityRepository.Value;
         public IFacultyRepository Faculty => _facultyRepository.Value;
         public IDepartmentRepository Department => _departmentRepository.Value;
