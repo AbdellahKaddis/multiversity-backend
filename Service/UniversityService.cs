@@ -84,7 +84,9 @@ public class UniversityService : IUniversityService
     public async Task<UniversityDto> GetUniversityByAdminIdAsync(string adminId, bool trackChanges)
     {
         var university = await _repository.University.GetUniversityByAdminIdAsync(adminId, trackChanges);
-        //check if it's null throw an exception
+        if (university is null)
+            throw new AdminForUniversityNotFoundException(adminId);
+
         var universityDto = _mapper.Map<UniversityDto>(university);
         return universityDto;
     }

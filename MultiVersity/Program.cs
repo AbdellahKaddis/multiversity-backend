@@ -49,7 +49,7 @@ builder.Services.Configure<DataProtectionTokenProviderOptions>(options =>
 builder.Services.AddControllers(config => {
     config.InputFormatters.Insert(0, GetJsonPatchInputFormatter());
 })
-    .AddApplicationPart(typeof(SouqJemla.Presentation.AssemblyReference).Assembly);
+    .AddApplicationPart(typeof(MultiVersity.Presentation.AssemblyReference).Assembly);
 
 var app = builder.Build();
 app.UseExceptionHandler(opt => { });

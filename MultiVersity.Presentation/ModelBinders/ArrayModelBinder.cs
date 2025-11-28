@@ -7,7 +7,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SouqJemla.Presentation.ModelBinders
+namespace MultiVersity.Presentation.ModelBinders
 {
     public class ArrayModelBinder : IModelBinder
     {

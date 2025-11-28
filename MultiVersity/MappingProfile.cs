@@ -13,7 +13,8 @@ namespace MultiVersity
             CreateMap<UniversityForCreationDto, University>();
 
             CreateMap<FacultyForCreationDto, Faculty>();
-            CreateMap<Faculty, FacultyDto>();
+            CreateMap<Faculty, FacultyDto>().ForCtorParam("DeanName",
+            opt => opt.MapFrom(x => string.Join(' ', x.Dean.FirstName, x.Dean.LastName)));
             CreateMap<FacultyForUpdateDto, Faculty>();
 
             CreateMap<Employee, EmployeeDto>();
@@ -22,6 +23,29 @@ namespace MultiVersity
          
             CreateMap<EmployeeForUpdateDto, Employee>().ReverseMap();
             CreateMap<UniversityAdminForRegistrationDto, User>();
+
+            CreateMap<FacultyDeanForRegistrationDto, User>();
+
+            CreateMap<DepartmentForCreationDto, Department>();
+            CreateMap<Department, DepartmentDto>();
+            CreateMap<DepartmentForUpdateDto, Department>();
+
+            CreateMap<DegreeForCreationDto, Degree>();
+            CreateMap<Degree, DegreeDto>();
+            CreateMap<DegreeForUpdateDto, Degree>();
+
+            CreateMap<AcademicProgramForCreationDto, Entities.Models.AcademicProgram>();
+            CreateMap<Entities.Models.AcademicProgram, AcademicProgramDto>();
+            CreateMap<AcademicProgramForUpdateDto, Entities.Models.AcademicProgram>();
+
+            CreateMap<CourseForCreationDto, Course>();
+            CreateMap<Course, CourseDto>();
+            CreateMap<CourseForUpdateDto, Course>();
+
+            CreateMap<ProgramCourseForCreationDto, ProgramCourse>();
+            CreateMap<ProgramCourse, ProgramCourseDto>();
+            CreateMap<ProgramCourseForUpdateDto, ProgramCourse>();
+
         }
     }
 

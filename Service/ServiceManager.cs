@@ -15,6 +15,11 @@ namespace Service
         private readonly Lazy<IAuthService> _authenticationService;
         private readonly Lazy<IUniversityService> _universityService;
         private readonly Lazy<IFacultyService> _facultyService;
+        private readonly Lazy<IDepartmentService> _departmentService;
+        private readonly Lazy<IDegreeService> _degreeService;
+        private readonly Lazy<IAcademicProgramService> _programService;
+        private readonly Lazy<ICourseService> _courseService;
+        private readonly Lazy<IProgramCourseService> _programCourseService;
         public ServiceManager(IRepositoryManager repositoryManager, ILoggerManager
         logger, IMapper mapper, UserManager<User> userManager, IConfiguration configuration,IEmailService emailService, IDistributedCache cache)
         {
@@ -32,12 +37,31 @@ namespace Service
 
             _facultyService = new Lazy<IFacultyService>(()=> 
             new FacultyService(repositoryManager,logger, mapper));
+
+            _departmentService = new Lazy<IDepartmentService>(() =>
+            new DepartmentService(repositoryManager, logger, mapper));
+
+            _degreeService = new Lazy<IDegreeService>(() =>
+            new DegreeService(repositoryManager, logger, mapper));
+
+            _programService = new Lazy<IAcademicProgramService>(() =>
+            new AcademicProgramService(repositoryManager, logger, mapper));
+
+            _courseService = new Lazy<ICourseService>(() =>
+            new CourseService(repositoryManager, logger, mapper));
+
+            _programCourseService = new Lazy<IProgramCourseService>(() =>
+            new ProgramCourseService(repositoryManager, logger, mapper));
         }
         public ICompanyService CompanyService => _companyService.Value;
         public IEmployeeService EmployeeService => _employeeService.Value;
-        public IAuthService AuthenticationService => 
-            _authenticationService.Value;
+        public IAuthService AuthenticationService => _authenticationService.Value;
         public IUniversityService UniversityService => _universityService.Value;
         public IFacultyService FacultyService => _facultyService.Value;
+        public IDepartmentService DepartmentService => _departmentService.Value;
+        public IDegreeService DegreeService => _degreeService.Value;
+        public IAcademicProgramService ProgramService => _programService.Value;
+        public ICourseService CourseService => _courseService.Value;
+        public IProgramCourseService ProgramCourseService => _programCourseService.Value;
     }
 }

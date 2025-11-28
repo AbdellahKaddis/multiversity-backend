@@ -1,6 +1,4 @@
-﻿namespace SouqJemla.Presentation
-{
-    public static class AssemblyReference
-    { }
+﻿namespace MultiVersity.Presentation;
 
-}
+public static class AssemblyReference
+{ }
