@@ -8,5 +8,7 @@ public record AcademicProgramDto(
     Guid DepartmentId,
     Guid DegreeId,
     string DepartmentName,
-    string DegreeName
+    string DegreeName,
+      string? FacultyName,
+    Guid? FacultyId
     );

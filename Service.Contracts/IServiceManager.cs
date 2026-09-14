@@ -11,5 +11,9 @@ namespace Service.Contracts
         IAcademicProgramService ProgramService { get; }
         ICourseService CourseService { get; }
         IProgramCourseService ProgramCourseService { get; }
+        IProfessorService ProfessorService { get; }
+        IFacultyDeanService FacultyDeanService { get;}
+        IProfessorCourseService ProfessorCourseService { get; }
+        IAdmissionService AdmissionService { get; }
     }
 }

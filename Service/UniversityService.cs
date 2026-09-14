@@ -98,5 +98,12 @@ public class UniversityService : IUniversityService
 
         return university;
     }
-   
+    public async Task<UniversityStatisticsDto> GetStatisticsAsync(Guid universityId) 
+    {
+        await GetUniversityAndCheckIfItExists(universityId, false);
+        var numberOfFaculties = await _repository.Faculty.GetCountByUniversityAsync(universityId);
+        var numberOfPrograms = await _repository.Program.GetCountByUniversityAsync(universityId);
+        var numberOfProfessors = await _repository.Professor.GetCountByUniversityAsync(universityId);
+        return new UniversityStatisticsDto(numberOfFaculties, numberOfPrograms, numberOfProfessors);
+    }
 }

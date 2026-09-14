@@ -21,6 +21,7 @@ public class DepartmentRepository : RepositoryBase<Department>, IDepartmentRepos
     public async Task<Department> GetDepartmentAsync(Guid facultyId, Guid id, bool trackChanges)
     {
         return await FindByCondition(d => d.FacultyId.Equals(facultyId) && d.Id.Equals(id), trackChanges)
+                .Include(d => d.Professors)
             .SingleOrDefaultAsync();
     }
     public async Task<Department> GetDepartmentAsync(Guid? id, bool trackChanges)
@@ -31,7 +32,12 @@ public class DepartmentRepository : RepositoryBase<Department>, IDepartmentRepos
 
     public async Task<IEnumerable<Department>> GetDepartmentsAsync(Guid facultyId, bool trackChanges)
     {
-        return await FindByCondition(d => d.FacultyId.Equals(facultyId), trackChanges)
-            .ToListAsync();
+        return await FindByCondition(
+    d => d.FacultyId.Equals(facultyId),
+    trackChanges)
+    .Include(d => d.Professors!
+        .Where(p =>(bool) p.IsDepartmentHead))
+        .ThenInclude(p => p.User)
+    .ToListAsync();
     }
 }

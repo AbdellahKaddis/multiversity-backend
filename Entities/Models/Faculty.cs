@@ -36,8 +36,7 @@ public class Faculty
     [Required(ErrorMessage = "UniversityId is a required field.")]
     public Guid UniversityId { get; set; }
     public University University { get; set; }
-    public string? DeanId { get; set; }
-    public User Dean { get; set; }
+    public ICollection<FacultyDean>? FacultyDeans { get; set; }
 
     public ICollection<Department>? Departments { get; set; }
     public ICollection<Course>? Courses { get; set; }

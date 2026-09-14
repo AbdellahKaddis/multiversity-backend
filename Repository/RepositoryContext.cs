@@ -41,11 +41,20 @@ public class RepositoryContext : IdentityDbContext<User>
             .WithOne(f => f.University)
             .OnDelete(DeleteBehavior.Restrict);
 
-        modelBuilder.Entity<Faculty>()
-        .HasOne(f => f.Dean)
-        .WithOne(u => u.Faculty)
-        .HasForeignKey<Faculty>(f => f.DeanId)
-        .OnDelete(DeleteBehavior.Restrict);
+        modelBuilder.Entity<FacultyDean>()
+              .HasKey(fd => fd.Id);
+
+        modelBuilder.Entity<FacultyDean>()
+            .HasOne(fd => fd.Dean)
+            .WithMany(d => d.FacultyDeans)
+            .HasForeignKey(fd => fd.DeanId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<FacultyDean>()
+            .HasOne(fd => fd.Faculty)
+            .WithMany(f => f.FacultyDeans)
+            .HasForeignKey(fd => fd.FacultyId)
+            .OnDelete(DeleteBehavior.Restrict);
 
         modelBuilder.Entity<Faculty>()
             .HasMany(f => f.Departments)
@@ -123,11 +132,21 @@ public class RepositoryContext : IdentityDbContext<User>
             .HasForeignKey(pc => pc.ProfessorId)
             .OnDelete(DeleteBehavior.Restrict);
 
-  
+        modelBuilder.Entity<AcademicProgram>()
+   .HasMany(ap => ap.Admissions)
+   .WithOne(a => a.Program)
+   .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<Admission>()
+           .HasMany(a => a.Requirements)
+           .WithOne(r => r.Admission)
+           .OnDelete(DeleteBehavior.Restrict);
+
     }
     public DbSet<University>? Universities { get; set; }
     public DbSet<Faculty>? Faculties { get; set; }
 
+    public DbSet<FacultyDean>? FacultyDeans { get; set; }
     public DbSet<Department>? Departments { get; set; }
     public DbSet<Degree>? Degrees { get; set; }
     public DbSet<AcademicProgram>? Programs { get; set; }
@@ -135,4 +154,6 @@ public class RepositoryContext : IdentityDbContext<User>
     public DbSet<ProgramCourse>? ProgramCourses { get; set; }
     public DbSet<ProfessorCourse>? ProfessorCourses { get; set; }
     public DbSet<Professor>? Professors { get; set; }
+    public DbSet<Admission>? Admission {  get; set; }
+    public DbSet<AdmissionRequirement>? AdmissionRequirement { get; set; }
 }

@@ -6,9 +6,11 @@ using Shared.DataTransferObjects;
 namespace Repository;
 public class UniversityRepository : RepositoryBase<University>, IUniversityRepository
 {
+    private readonly RepositoryContext _repositoryContext ;
     public UniversityRepository(RepositoryContext repositoryContext)
         : base(repositoryContext)
     {
+        _repositoryContext = repositoryContext;
     }
     public void CreateUniversity(University university)
     {
@@ -73,5 +75,7 @@ public class UniversityRepository : RepositoryBase<University>, IUniversityRepos
 
         return duplicateFields;
     }
+    
+    
 }
 

@@ -16,4 +16,5 @@ public interface IUniversityService
        string name,
        string? phoneNumber);
     Task<UniversityDto> GetUniversityByAdminIdAsync(string adminId, bool trackChanges);
+    Task<UniversityStatisticsDto> GetStatisticsAsync(Guid universityId);
 }

@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Service.Contracts.IAuthService;
 
 namespace MultiVersity.Presentation.Controllers
 {
@@ -58,12 +59,24 @@ namespace MultiVersity.Presentation.Controllers
         public async Task<IActionResult> Authenticate([FromBody] UserForAuthenticationDto
             user)
         {
-            if (!await _service.AuthenticationService.ValidateUser(user))
-                return Unauthorized();
-            return Ok(new
+            var result = await _service.AuthenticationService.ValidateUser(user);
+
+            return result switch
             {
-                Token = await _service.AuthenticationService.CreateToken()
-            });
+                AuthenticationResult.Success => Ok(new
+                {
+                    Token = await _service.AuthenticationService.CreateToken()
+                }),
+
+                AuthenticationResult.LockedOut => Unauthorized(
+                    new { Message = "Your account is temporarily locked. Please try again later." }),
+
+                AuthenticationResult.Inactive => Unauthorized(
+                    new { Message = "Your account is inactive." }),
+
+                AuthenticationResult.InvalidCredentials => Unauthorized(
+                    new { Message = "Invalid email or password." })
+            };
         }
 
         [HttpGet("check-email/{email}")]
@@ -112,6 +125,14 @@ namespace MultiVersity.Presentation.Controllers
                 return BadRequest(ModelState);
             }
             return Ok(new { message = "Password reset successfully." });
+        }
+
+        [HttpPatch("users/{userId}/deactivate")]
+        public async Task<IActionResult> DeactivateUser(string userId)
+        {
+            await _service.AuthenticationService.DeactivateUserAsync(userId);
+
+            return NoContent();
         }
     }
 }

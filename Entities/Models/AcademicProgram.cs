@@ -27,9 +27,11 @@ public class AcademicProgram
     public Degree Degree {  get; set; }
     public ICollection<ProgramCourse> ProgramCourses { get; set; }
 
+    public ICollection<Admission> Admissions { get; set; }
+
     //public string? CoordinatorId { get; set; }
 
     //public ApplicationUser? Coordinator { get; set; }
-    //public ICollection<Course> Courses { get; set; }
+
     //public ICollection<Student> Students { get; set; }
 }

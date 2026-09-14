@@ -64,6 +64,10 @@ public class ProgramCourseService : IProgramCourseService
     {
         var programCourseEntity = await GetProgramCourseAndCheckIfItExists(id, trackChanges);
 
+        await CheckIfProgramExists(programCourseForUpdateDto.ProgramId, false);
+
+        await CheckIfCourseExists(programCourseForUpdateDto.CourseId, false);
+
         _mapper.Map(programCourseForUpdateDto, programCourseEntity);
 
         await _repository.SaveAsync();

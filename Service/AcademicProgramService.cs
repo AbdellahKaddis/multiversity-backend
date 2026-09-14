@@ -55,6 +55,9 @@ public class AcademicProgramService : IAcademicProgramService
 
         await CheckIfDepartmentExists(programParameters.DepartmentId, trackChanges);
 
+        if (programParameters.UniversityId is not null)
+            await CheckIfUniversityExists((Guid)programParameters.UniversityId, false);
+
         var programsEntities = await _repository.Program.GetProgramsAsync(programParameters, trackChanges);
 
         var programsDto = _mapper.Map<IEnumerable<AcademicProgramDto>>(programsEntities);
@@ -97,7 +100,12 @@ public class AcademicProgramService : IAcademicProgramService
         if (faculty is null)
             throw new FacultyNotFoundException(facultyId);
     }
-
+    private async Task CheckIfUniversityExists(Guid universityId, bool trackChanges)
+    {
+        var university = await _repository.University.GetUniversityAsync(universityId, trackChanges);
+        if (university is null)
+            throw new UniversityNotFoundException(universityId);
+    }
     private async Task<AcademicProgram> GetProgramAndCheckIfItExists
     (Guid id, bool trackChanges)
     {

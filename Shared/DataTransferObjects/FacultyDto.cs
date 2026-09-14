@@ -14,6 +14,6 @@ public record FacultyDto(
        string? PhoneNumber,
        int? EstablishedYear, 
        Guid UniversityId,
-       string? DeanId,
-       string? DeanName
+       string? DeanName,
+       int DepartmentCount
     );

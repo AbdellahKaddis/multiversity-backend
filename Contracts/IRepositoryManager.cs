@@ -1,4 +1,6 @@
 ﻿
+using Microsoft.EntityFrameworkCore.Storage;
+
 namespace Contracts
 {
     public interface IRepositoryManager
@@ -10,6 +12,12 @@ namespace Contracts
         IAcademicProgramRepository Program { get; }
         ICourseRepository Course { get; }
         IProgramCourseRepository ProgramCourse { get; }
+        IProfessorRepository Professor { get; }
+        IFacultyDeanRepository FacultyDean { get; }
+        IProfessorCourseRepository ProfessorCourse { get; }
+        IAdmissionRepository Admission { get; }
+        IAdmissionRequirementRepository AdmissionRequirement { get; }
+        Task<IDbContextTransaction> BeginTransactionAsync();
         Task SaveAsync();
 
     }

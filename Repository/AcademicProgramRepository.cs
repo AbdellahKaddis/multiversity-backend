@@ -31,6 +31,7 @@ public class AcademicProgramRepository : RepositoryBase<AcademicProgram>, IAcade
         return await FindByCondition(p => p.Id.Equals(id), trackChanges)
             .Include(p => p.Degree)
             .Include(p => p.Department)
+            .ThenInclude(d => d.Faculty)
             .SingleOrDefaultAsync();
     }
 
@@ -39,7 +40,9 @@ public class AcademicProgramRepository : RepositoryBase<AcademicProgram>, IAcade
         return await FindAll(trackChanges)
             .Include(p => p.Degree)
             .Include(p => p.Department)
-            .FilterPrograms(programParameters.FacultyId, programParameters.DepartmentId)
+            .ThenInclude(d => d.Faculty)
+            .FilterPrograms(programParameters.FacultyId, programParameters.DepartmentId, programParameters.UniversityId)
             .ToListAsync();
     }
+    public async Task<int> GetCountByUniversityAsync(Guid universityId) { return await FindByCondition(p => p.Department.Faculty.UniversityId == universityId, false).CountAsync(); }
 }

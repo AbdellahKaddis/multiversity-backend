@@ -9,4 +9,5 @@ public interface IAcademicProgramRepository
     Task<AcademicProgram> GetProgramAsync(Guid id, bool trackChanges);
     void CreateProgramForDepartment(Guid departmentId, AcademicProgram program);
     void DeleteProgram(AcademicProgram program);
+    Task<int> GetCountByUniversityAsync(Guid universityId);
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.JsonPatch;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using MultiVersity.Presentation.ActionFilters;
 using Service.Contracts;
@@ -68,13 +69,29 @@ public class FacultiesController : ControllerBase
          uniTrackChanges: false, facTrackChanges: true);
         return NoContent();
     }
-
     [HttpGet("/api/deans/{deanId}/faculty")]
 
-    public async Task<IActionResult> GetUniversityByAdminId(string deanId)
+    public async Task<IActionResult> GetFacultyByDeanId(string deanId)
     {
         var faculty = await _service.FacultyService.GetFacultyByDeanIdAsync(deanId, trackChanges:
         false);
         return Ok(faculty);
+    }
+
+    [HttpPatch("~/api/faculties/{facultyId}/dean/end")]
+    public async Task<IActionResult> EndDeanAssignment(Guid facultyId)
+    {
+        await _service.FacultyService.EndDeanAssignmentAsync(facultyId);
+
+        return NoContent();
+    }
+
+    [HttpPost("~/api/faculties/{facultyId}/dean")]
+    public async Task<IActionResult> CreateAndAssignDean(Guid facultyId,
+    [FromBody] FacultyDeanForRegistrationDto dto)
+    {
+        await _service.FacultyDeanService.CreateAndAssignDeanAsync(facultyId, dto);
+
+        return StatusCode(StatusCodes.Status201Created);
     }
 }

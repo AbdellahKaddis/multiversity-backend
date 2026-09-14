@@ -71,4 +71,11 @@ public class UniversitiesController : ControllerBase
         false);
         return Ok(university);
     }
+
+    [HttpGet("{universityId:guid}/statistics")] 
+    public async Task<IActionResult> GetStatistics(Guid universityId) 
+    { 
+        var statistics = await _service.UniversityService.GetStatisticsAsync(universityId);
+        return Ok(statistics);
+    }
 }

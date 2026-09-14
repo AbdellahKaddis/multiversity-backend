@@ -45,6 +45,10 @@ public static class ServiceExtensions
             o.Password.RequireUppercase = true;
             o.Password.RequireNonAlphanumeric = true;
             o.User.RequireUniqueEmail = true;
+
+            o.Lockout.MaxFailedAccessAttempts = 5;
+            o.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(15);
+            o.Lockout.AllowedForNewUsers = true;
         })
         .AddEntityFrameworkStores<RepositoryContext>()
         .AddDefaultTokenProviders();

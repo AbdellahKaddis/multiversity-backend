@@ -22,6 +22,65 @@ namespace MultiVersity.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("Admission", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("AdmissionId");
+
+                    b.Property<string>("AcademicYear")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Process")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("ProgramId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProgramId");
+
+                    b.ToTable("Admission");
+                });
+
+            modelBuilder.Entity("AdmissionRequirement", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("AdmissionRequirementId");
+
+                    b.Property<Guid>("AdmissionId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("DisplayOrder")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AdmissionId");
+
+                    b.ToTable("AdmissionRequirement");
+                });
+
             modelBuilder.Entity("Entities.Models.AcademicProgram", b =>
                 {
                     b.Property<Guid>("Id")
@@ -180,9 +239,6 @@ namespace MultiVersity.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("DeanId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -209,10 +265,6 @@ namespace MultiVersity.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("DeanId")
-                        .IsUnique()
-                        .HasFilter("[DeanId] IS NOT NULL");
 
                     b.HasIndex("UniversityId");
 
@@ -381,6 +433,12 @@ namespace MultiVersity.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DeletedBy")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -392,6 +450,9 @@ namespace MultiVersity.Migrations
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
+
+                    b.Property<bool?>("IsActive")
+                        .HasColumnType("bit");
 
                     b.Property<string>("LastName")
                         .IsRequired()
@@ -442,6 +503,35 @@ namespace MultiVersity.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+                });
+
+            modelBuilder.Entity("FacultyDean", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("FacultyDeanId");
+
+                    b.Property<string>("DeanId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime?>("EndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("FacultyId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DeanId");
+
+                    b.HasIndex("FacultyId");
+
+                    b.ToTable("FacultyDeans");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -609,6 +699,28 @@ namespace MultiVersity.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Admission", b =>
+                {
+                    b.HasOne("Entities.Models.AcademicProgram", "Program")
+                        .WithMany("Admissions")
+                        .HasForeignKey("ProgramId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Program");
+                });
+
+            modelBuilder.Entity("AdmissionRequirement", b =>
+                {
+                    b.HasOne("Admission", "Admission")
+                        .WithMany("Requirements")
+                        .HasForeignKey("AdmissionId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Admission");
+                });
+
             modelBuilder.Entity("Entities.Models.AcademicProgram", b =>
                 {
                     b.HasOne("Entities.Models.Degree", "Degree")
@@ -663,18 +775,11 @@ namespace MultiVersity.Migrations
 
             modelBuilder.Entity("Entities.Models.Faculty", b =>
                 {
-                    b.HasOne("Entities.Models.User", "Dean")
-                        .WithOne("Faculty")
-                        .HasForeignKey("Entities.Models.Faculty", "DeanId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
                     b.HasOne("Entities.Models.University", "University")
                         .WithMany("Faculties")
                         .HasForeignKey("UniversityId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.Navigation("Dean");
 
                     b.Navigation("University");
                 });
@@ -755,6 +860,25 @@ namespace MultiVersity.Migrations
                     b.Navigation("Admin");
                 });
 
+            modelBuilder.Entity("FacultyDean", b =>
+                {
+                    b.HasOne("Entities.Models.User", "Dean")
+                        .WithMany("FacultyDeans")
+                        .HasForeignKey("DeanId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Entities.Models.Faculty", "Faculty")
+                        .WithMany("FacultyDeans")
+                        .HasForeignKey("FacultyId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Dean");
+
+                    b.Navigation("Faculty");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -806,8 +930,15 @@ namespace MultiVersity.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Admission", b =>
+                {
+                    b.Navigation("Requirements");
+                });
+
             modelBuilder.Entity("Entities.Models.AcademicProgram", b =>
                 {
+                    b.Navigation("Admissions");
+
                     b.Navigation("ProgramCourses");
                 });
 
@@ -836,6 +967,8 @@ namespace MultiVersity.Migrations
 
                     b.Navigation("Departments");
 
+                    b.Navigation("FacultyDeans");
+
                     b.Navigation("Professors");
                 });
 
@@ -853,8 +986,7 @@ namespace MultiVersity.Migrations
 
             modelBuilder.Entity("Entities.Models.User", b =>
                 {
-                    b.Navigation("Faculty")
-                        .IsRequired();
+                    b.Navigation("FacultyDeans");
 
                     b.Navigation("Professor")
                         .IsRequired();

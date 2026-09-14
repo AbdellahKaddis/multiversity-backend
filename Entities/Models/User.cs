@@ -17,13 +17,15 @@ namespace Entities.Models
         [MaxLength(10, ErrorMessage = "Maximum length for the Cin is 10 characters.")]
         public string? Cin {  get; set; }
 
-        //[Required(ErrorMessage = "IsActive is a required field.")]
-        //public bool IsActive { get; set; }
+        public bool? IsActive { get; set; }
+        public DateTime? DeletedAt { get; set; }
+
+        public string? DeletedBy { get; set; }
 
         public University University { get; set; }
         public Professor Professor {  get; set; }
 
-        public Faculty Faculty { get; set; }
+        public ICollection<FacultyDean>? FacultyDeans { get; set; }
         public User()
         {
             UserName = Email;

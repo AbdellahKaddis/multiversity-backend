@@ -5,8 +5,10 @@ namespace Repository.Extensions;
 public static class RepositoryAcademicProgramExtensions
 {
     public static IQueryable<AcademicProgram> FilterPrograms
-        (this IQueryable<AcademicProgram> programs, Guid? facultyId, Guid? departmentId)
+        (this IQueryable<AcademicProgram> programs, Guid? facultyId, Guid? departmentId, Guid? universityId)
     {
+        if (universityId is not null)
+            return programs.Where(p => p.Department.Faculty.UniversityId == universityId);
         if (facultyId is null && departmentId is null)
             return programs;
         if(facultyId is not null && departmentId is null)

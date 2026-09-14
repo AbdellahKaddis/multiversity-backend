@@ -30,5 +30,4 @@ public abstract record FacultyForManipulationDto
     [Phone]
     public string? PhoneNumber { get; init; }
     public int? EstablishedYear { get; init; }
-    public string? DeanId { get; init; }
 }

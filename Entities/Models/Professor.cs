@@ -6,7 +6,7 @@ namespace Entities.Models;
 public class Professor
 {
     [Column("ProfessorId")]
-    public string? Id { get; set; }
+    public string Id { get; set; }
     public User User { get; set; }
 
     [MaxLength(50, ErrorMessage = "Maximum length for the Grade is 50 characters.")]
