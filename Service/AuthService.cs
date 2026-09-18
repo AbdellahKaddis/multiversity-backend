@@ -273,26 +273,4 @@ public class AuthService : IAuthService
         }
         return (result, null);
     }
-    public async Task<(IdentityResult Result, string? UserId)> RegisterProfessor(ProfessorForCreationDto professorForCreationDto)
-    {
-        var user = _mapper.Map<User>(professorForCreationDto);
-        user.UserName = professorForCreationDto.Email;
-
-        var result = await _userManager.CreateAsync(user);
-
-        if (result.Succeeded)
-        {
-            var roleResult = await _userManager.AddToRoleAsync(user, "Professor");
-
-            if (!roleResult.Succeeded)
-            {
-                throw new UserRoleAssignmentBadRequestException(
-                    string.Join(", ",
-                        roleResult.Errors.Select(e => e.Description)));
-            }
-            return (result, user.Id);
-        }
-        return (result, null);
-    }
-
 }

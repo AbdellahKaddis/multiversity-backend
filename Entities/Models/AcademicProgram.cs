@@ -28,6 +28,8 @@ public class AcademicProgram
     public ICollection<ProgramCourse> ProgramCourses { get; set; }
 
     public ICollection<Admission> Admissions { get; set; }
+    public ICollection<Application>? Applications { get; set; }
+    public ICollection<Enrollment>? Enrollments { get; set; }
 
     //public string? CoordinatorId { get; set; }
 

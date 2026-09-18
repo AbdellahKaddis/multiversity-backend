@@ -141,7 +141,52 @@ public class RepositoryContext : IdentityDbContext<User>
            .HasMany(a => a.Requirements)
            .WithOne(r => r.Admission)
            .OnDelete(DeleteBehavior.Restrict);
+ 
 
+     modelBuilder.Entity<Applicant>()
+    .HasOne(a => a.User)
+    .WithOne(u => u.Applicant)
+    .HasForeignKey<Applicant>(a => a.Id)
+    .OnDelete(DeleteBehavior.Cascade);
+
+        modelBuilder.Entity<AcademicProgram>()
+            .HasMany(ap => ap.Applications)
+            .WithOne(a => a.Program)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<Applicant>()
+            .HasMany(a => a.Applications)
+            .WithOne(a => a.Applicant)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        modelBuilder.Entity<User>()
+            .HasMany(r => r.Applications)
+            .WithOne(a => a.Reviewer)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<Faculty>()
+    .HasMany(f => f.Applicants)
+    .WithOne(a => a.Faculty)
+    .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<Faculty>()
+.HasMany(f => f.Enrollments)
+.WithOne(e => e.Faculty)
+.OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<AcademicProgram>()
+.HasMany(a => a.Enrollments)
+.WithOne(e => e.Program)
+.OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<Applicant>()
+.HasMany(a => a.Enrollments)
+.WithOne(e => e.Applicant)
+.OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.HasSequence<int>("StudentNumberSeq")
+    .StartsAt(1)
+    .IncrementsBy(1);
     }
     public DbSet<University>? Universities { get; set; }
     public DbSet<Faculty>? Faculties { get; set; }
@@ -156,4 +201,7 @@ public class RepositoryContext : IdentityDbContext<User>
     public DbSet<Professor>? Professors { get; set; }
     public DbSet<Admission>? Admission {  get; set; }
     public DbSet<AdmissionRequirement>? AdmissionRequirement { get; set; }
+    public DbSet<Applicant>? Applicants { get; set; }
+    public DbSet<Application>? Applications { get; set; }
+    public DbSet<Enrollment>? Enrollments { get; set; }
 }

@@ -24,7 +24,9 @@ namespace Entities.Models
 
         public University University { get; set; }
         public Professor Professor {  get; set; }
+        public Applicant Applicant { get; set; }
 
+        public ICollection<Application>? Applications { get; set; }
         public ICollection<FacultyDean>? FacultyDeans { get; set; }
         public User()
         {

@@ -41,5 +41,7 @@ public class Faculty
     public ICollection<Department>? Departments { get; set; }
     public ICollection<Course>? Courses { get; set; }
     public ICollection<Professor>? Professors { get; set; }
+    public ICollection<Applicant>? Applicants { get; set; }
+    public ICollection<Enrollment>? Enrollments { get; set; }
 }
 

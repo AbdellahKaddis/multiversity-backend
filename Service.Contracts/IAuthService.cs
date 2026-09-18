@@ -23,6 +23,5 @@ public interface IAuthService
     Task ConfirmVerification(ConfirmVerificationDto dto);
     Task ForgotPassword(ForgotPasswordDto dto);
     Task<IdentityResult> ResetPassword(ResetPasswordDto dto);
-    Task<(IdentityResult Result, string? UserId)> RegisterProfessor(ProfessorForCreationDto professorForCreationDto);
     Task DeactivateUserAsync(string userId);
 }

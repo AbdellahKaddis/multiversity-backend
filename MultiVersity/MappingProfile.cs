@@ -98,7 +98,7 @@ namespace MultiVersity
             CreateMap<ProfessorCourseForCreationDto, ProfessorCourse>();
             CreateMap<ProfessorCourse, ProfessorCourseDto>()
                   .ForCtorParam("ProfessorName",
-                opt => opt.MapFrom(src => src.Professor.User.FirstName + " " + src.Professor.User.FirstName))
+                opt => opt.MapFrom(src => src.Professor.User.FirstName + " " + src.Professor.User.LastName))
 
                     .ForCtorParam("CourseName",opt => opt.MapFrom(src => src.Course.Title))
 
@@ -118,7 +118,48 @@ namespace MultiVersity
             CreateMap<AdmissionRequirementForCreationDto, AdmissionRequirement>();
             CreateMap<AdmissionRequirement, AdmissionRequirementDto>();
 
+            CreateMap<ApplicantForRegistrationDto, User>();
+            CreateMap<ApplicantForRegistrationDto, Applicant>();
+            CreateMap<ApplicantForUpdateDto, Applicant>();
+
+            CreateMap<Applicant, ApplicantDto>()
+                 .ForCtorParam("FullName",
+        o => o.MapFrom(s => s.User.FirstName + " " + s.User.LastName))
+                 .ForCtorParam("StudentNumber",
+        o => o.MapFrom(s => s.Enrollments.FirstOrDefault() != null
+            ? s.Enrollments.First().StudentNumber
+            : null))
+                     .ForCtorParam("EnrolledAt",
+        o => o.MapFrom(s => (DateTime?)(s.Enrollments.FirstOrDefault() != null
+            ? s.Enrollments.First().EnrolledAt
+            : (DateTime?)null)));
+
+            CreateMap<Application, ApplicationDto>()
+                 .ForCtorParam("ApplicantFullName",
+               opt => opt.MapFrom(src => src.Applicant.User.FirstName + " " + src.Applicant.User.LastName))
+
+                   .ForCtorParam("ProgramName", opt => opt.MapFrom(src => src.Program.Name))
+                    .ForCtorParam("FacultyName", opt => opt.MapFrom(src => src.Applicant.Faculty.Name))
+
+                     .ForCtorParam("ReviewerName", opt => opt.MapFrom(src => src.Reviewer == null ? null : src.Reviewer.FirstName + " " + src.Reviewer.LastName));
+
+       
+            CreateMap<ApplicantForUpdateDto, Application>();
+            CreateMap<ApplicationForCreationDto, Application>();
+
+            CreateMap<Enrollment, EnrollmentDto>()
+               .ForCtorParam("ApplicantFullName",
+             opt => opt.MapFrom(src => src.Applicant.User.FirstName + " " + src.Applicant.User.LastName))
+
+                 .ForCtorParam("ProgramName", opt => opt.MapFrom(src => src.Program.Name))
+                  .ForCtorParam("FacultyName", opt => opt.MapFrom(src => src.Faculty.Name));
+
+            CreateMap<EnrollmentForCreationDto, Enrollment>();
+            CreateMap<EnrollmentForUpdateDto, Enrollment>();
+
+
             
+
         }
     }
 

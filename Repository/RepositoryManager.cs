@@ -19,6 +19,9 @@ namespace Repository
         private readonly Lazy<IProfessorCourseRepository> _professorCourseRepository;
         private readonly Lazy<IAdmissionRepository> _admissionRepository;
         private readonly Lazy<IAdmissionRequirementRepository> _admissionRequirementRepository;
+        private readonly Lazy<IApplicantRepository> _applicantRepository;
+        private readonly Lazy<IApplicationRepository> _applicationRepository;
+        private readonly Lazy<IEnrollmentRepository> _enrollmentRepository;
         public RepositoryManager(RepositoryContext repositoryContext)
         {
 
@@ -58,6 +61,15 @@ namespace Repository
 
             _admissionRequirementRepository = new Lazy<IAdmissionRequirementRepository>(() => new
             AdmissionRequirementRepository(repositoryContext));
+
+            _applicantRepository = new Lazy<IApplicantRepository>(() => new
+           ApplicantRepository(repositoryContext));
+
+            _applicationRepository = new Lazy<IApplicationRepository>(() => new
+            ApplicationRepository(repositoryContext));
+
+            _enrollmentRepository = new Lazy<IEnrollmentRepository>(() => new
+          EnrollmentRepository(repositoryContext));
         }
 
         public IUniversityRepository University => _universityRepository.Value;
@@ -72,7 +84,9 @@ namespace Repository
         public IProfessorCourseRepository ProfessorCourse => _professorCourseRepository.Value;
         public IAdmissionRepository Admission => _admissionRepository.Value;
         public IAdmissionRequirementRepository AdmissionRequirement => _admissionRequirementRepository.Value;
-
+        public IApplicantRepository Applicant => _applicantRepository.Value;
+        public IApplicationRepository Application => _applicationRepository.Value;
+        public IEnrollmentRepository Enrollment => _enrollmentRepository.Value;
         public async Task<IDbContextTransaction> BeginTransactionAsync()
         {
             return await _repositoryContext.Database.BeginTransactionAsync();

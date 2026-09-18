@@ -9,6 +9,7 @@ using Service;
 using MultiVersity.Extensions;
 using MultiVersity;
 using MultiVersity.Presentation.ActionFilters;
+using MultiVersity.Presentation;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -41,6 +42,9 @@ builder.Services.ConfigureJWT(builder.Configuration);
 //just for developement in production use redis cache system
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddScoped<IEmailService, EmailService>();
+builder.Services.AddScoped<FileStorageService>();
+builder.Services.AddScoped<IFileStorageService>(sp => sp.GetRequiredService<FileStorageService>());
+builder.Services.AddHostedService<FileReconciliationService>();
 builder.Services.Configure<DataProtectionTokenProviderOptions>(options =>
 {
     options.TokenLifespan = TimeSpan.FromMinutes(10);

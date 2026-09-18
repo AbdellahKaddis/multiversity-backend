@@ -22,6 +22,8 @@ namespace MultiVersity.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.HasSequence<int>("StudentNumberSeq");
+
             modelBuilder.Entity("Admission", b =>
                 {
                     b.Property<Guid>("Id")
@@ -116,6 +118,102 @@ namespace MultiVersity.Migrations
                     b.HasIndex("DepartmentId");
 
                     b.ToTable("Programs");
+                });
+
+            modelBuilder.Entity("Entities.Models.Applicant", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)")
+                        .HasColumnName("ApplicantId");
+
+                    b.Property<string>("CIN")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DOB")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("FacultyId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Gender")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MassarCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Phone")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhotoUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PlaceOfBirth")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Status")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FacultyId");
+
+                    b.ToTable("Applicants");
+                });
+
+            modelBuilder.Entity("Entities.Models.Application", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("ApplicationId");
+
+                    b.Property<string>("ApplicantId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("BacMention")
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.Property<string>("BacSerie")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<long>("BacYear")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("FileUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Grade")
+                        .HasColumnType("decimal(5,2)");
+
+                    b.Property<Guid>("ProgramId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ReviewerId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("SubmittedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApplicantId");
+
+                    b.HasIndex("ProgramId");
+
+                    b.HasIndex("ReviewerId");
+
+                    b.ToTable("Applications");
                 });
 
             modelBuilder.Entity("Entities.Models.Course", b =>
@@ -218,6 +316,54 @@ namespace MultiVersity.Migrations
                     b.HasIndex("FacultyId");
 
                     b.ToTable("Departments");
+                });
+
+            modelBuilder.Entity("Entities.Models.Enrollment", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("EnrollmentId");
+
+                    b.Property<string>("AcademicYear")
+                        .IsRequired()
+                        .HasMaxLength(9)
+                        .HasColumnType("nvarchar(9)");
+
+                    b.Property<string>("ApplicantId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("EnrolledAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("FacultyId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ProgramId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StudentNumber")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<int>("YearLevel")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApplicantId");
+
+                    b.HasIndex("FacultyId");
+
+                    b.HasIndex("ProgramId");
+
+                    b.ToTable("Enrollments");
                 });
 
             modelBuilder.Entity("Entities.Models.Faculty", b =>
@@ -590,6 +736,12 @@ namespace MultiVersity.Migrations
                             Id = "5",
                             Name = "Dean",
                             NormalizedName = "DEAN"
+                        },
+                        new
+                        {
+                            Id = "6",
+                            Name = "Applicant",
+                            NormalizedName = "APPLICANT"
                         });
                 });
 
@@ -740,6 +892,50 @@ namespace MultiVersity.Migrations
                     b.Navigation("Department");
                 });
 
+            modelBuilder.Entity("Entities.Models.Applicant", b =>
+                {
+                    b.HasOne("Entities.Models.Faculty", "Faculty")
+                        .WithMany("Applicants")
+                        .HasForeignKey("FacultyId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("Entities.Models.User", "User")
+                        .WithOne("Applicant")
+                        .HasForeignKey("Entities.Models.Applicant", "Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Faculty");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Entities.Models.Application", b =>
+                {
+                    b.HasOne("Entities.Models.Applicant", "Applicant")
+                        .WithMany("Applications")
+                        .HasForeignKey("ApplicantId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Entities.Models.AcademicProgram", "Program")
+                        .WithMany("Applications")
+                        .HasForeignKey("ProgramId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Entities.Models.User", "Reviewer")
+                        .WithMany("Applications")
+                        .HasForeignKey("ReviewerId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("Applicant");
+
+                    b.Navigation("Program");
+
+                    b.Navigation("Reviewer");
+                });
+
             modelBuilder.Entity("Entities.Models.Course", b =>
                 {
                     b.HasOne("Entities.Models.Faculty", "Faculty")
@@ -771,6 +967,33 @@ namespace MultiVersity.Migrations
                         .IsRequired();
 
                     b.Navigation("Faculty");
+                });
+
+            modelBuilder.Entity("Entities.Models.Enrollment", b =>
+                {
+                    b.HasOne("Entities.Models.Applicant", "Applicant")
+                        .WithMany("Enrollments")
+                        .HasForeignKey("ApplicantId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Entities.Models.Faculty", "Faculty")
+                        .WithMany("Enrollments")
+                        .HasForeignKey("FacultyId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Entities.Models.AcademicProgram", "Program")
+                        .WithMany("Enrollments")
+                        .HasForeignKey("ProgramId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Applicant");
+
+                    b.Navigation("Faculty");
+
+                    b.Navigation("Program");
                 });
 
             modelBuilder.Entity("Entities.Models.Faculty", b =>
@@ -939,7 +1162,18 @@ namespace MultiVersity.Migrations
                 {
                     b.Navigation("Admissions");
 
+                    b.Navigation("Applications");
+
+                    b.Navigation("Enrollments");
+
                     b.Navigation("ProgramCourses");
+                });
+
+            modelBuilder.Entity("Entities.Models.Applicant", b =>
+                {
+                    b.Navigation("Applications");
+
+                    b.Navigation("Enrollments");
                 });
 
             modelBuilder.Entity("Entities.Models.Course", b =>
@@ -963,9 +1197,13 @@ namespace MultiVersity.Migrations
 
             modelBuilder.Entity("Entities.Models.Faculty", b =>
                 {
+                    b.Navigation("Applicants");
+
                     b.Navigation("Courses");
 
                     b.Navigation("Departments");
+
+                    b.Navigation("Enrollments");
 
                     b.Navigation("FacultyDeans");
 
@@ -986,6 +1224,11 @@ namespace MultiVersity.Migrations
 
             modelBuilder.Entity("Entities.Models.User", b =>
                 {
+                    b.Navigation("Applicant")
+                        .IsRequired();
+
+                    b.Navigation("Applications");
+
                     b.Navigation("FacultyDeans");
 
                     b.Navigation("Professor")

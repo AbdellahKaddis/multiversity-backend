@@ -22,8 +22,12 @@ namespace Service
         private readonly Lazy<IFacultyDeanService> _facultyDeanService;
         private readonly Lazy<IProfessorCourseService> _professorCourseService;
         private readonly Lazy<IAdmissionService> _admissionService;
+        private readonly Lazy<IApplicantService> _applicantService;
+        private readonly Lazy<IApplicationService> _applicationService;
+        private readonly Lazy<IEnrollmentService> _enrollmentService;
+
         public ServiceManager(IRepositoryManager repositoryManager, ILoggerManager
-        logger, IMapper mapper, UserManager<User> userManager, IConfiguration configuration,IEmailService emailService, IDistributedCache cache, SignInManager<User> signInManager)
+        logger, IMapper mapper, UserManager<User> userManager, IConfiguration configuration,IEmailService emailService, IDistributedCache cache, SignInManager<User> signInManager, IFileStorageService fileStorageService)
         {
 
             _authenticationService = new Lazy<IAuthService>(() => 
@@ -57,8 +61,18 @@ namespace Service
 
             _professorCourseService = new Lazy<IProfessorCourseService>(() =>
               new ProfessorCourseService(repositoryManager, logger, mapper));
+
             _admissionService = new Lazy<IAdmissionService>(() =>
             new AdmissionService(repositoryManager, logger, mapper));
+
+            _applicantService = new Lazy<IApplicantService>(() =>
+            new ApplicantService(repositoryManager, logger, mapper, userManager));
+
+            _applicationService = new Lazy<IApplicationService>(() =>
+           new ApplicationService(repositoryManager, logger, mapper, fileStorageService));
+
+            _enrollmentService = new Lazy<IEnrollmentService>(() =>
+           new EnrollmentService(repositoryManager, logger, mapper, userManager));
         }
         
         public IAuthService AuthenticationService => _authenticationService.Value;
@@ -73,5 +87,10 @@ namespace Service
         public IFacultyDeanService FacultyDeanService => _facultyDeanService.Value;
         public IProfessorCourseService ProfessorCourseService => _professorCourseService.Value;
         public IAdmissionService AdmissionService => _admissionService.Value;
+        public IApplicantService ApplicantService => _applicantService.Value;
+
+        public IApplicationService ApplicationService => _applicationService.Value;
+        public IEnrollmentService EnrollmentService => _enrollmentService.Value;
+
     }
 }

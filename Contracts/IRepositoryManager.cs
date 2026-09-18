@@ -17,6 +17,9 @@ namespace Contracts
         IProfessorCourseRepository ProfessorCourse { get; }
         IAdmissionRepository Admission { get; }
         IAdmissionRequirementRepository AdmissionRequirement { get; }
+        IApplicantRepository Applicant { get; }
+        IApplicationRepository Application { get; }
+        IEnrollmentRepository Enrollment { get; }
         Task<IDbContextTransaction> BeginTransactionAsync();
         Task SaveAsync();
 
