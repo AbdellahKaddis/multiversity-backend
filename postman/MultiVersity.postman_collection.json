@@ -1,0 +1,2899 @@
+{
+  "info": {
+    "_postman_id": "4b18ff0b-aff2-4e5f-8f0b-43858d64f4e2",
+    "name": "MultiVersity",
+    "description": "# 🚀 Get started here\n\nThis template guides you through CRUD operations (GET, POST, PUT, DELETE), variables, and tests.\n\n## 🔖 **How to use this template**\n\n#### **Step 1: Send requests**\n\nRESTful APIs allow you to perform CRUD operations using the POST, GET, PUT, and DELETE HTTP methods.\n\nThis collection contains each of these [request](https://learning.postman.com/docs/sending-requests/requests/) types. Open each request and click \"Send\" to see what happens.\n\n#### **Step 2: View responses**\n\nObserve the response tab for status code (200 OK), response time, and size.\n\n#### **Step 3: Send new Body data**\n\nUpdate or add new data in \"Body\" in the POST request. Typically, Body data is also used in PUT request.\n\n```\n{\n    \"name\": \"Add your name in the body\"\n}\n\n ```\n\n#### **Step 4: Update the variable**\n\nVariables enable you to store and reuse values in Postman. We have created a [variable](https://learning.postman.com/docs/sending-requests/variables/) called `base_url` with the sample request [https://postman-api-learner.glitch.me](https://postman-api-learner.glitch.me). Replace it with your API endpoint to customize this collection.\n\n#### **Step 5: Add tests in the \"Scripts\" tab**\n\nAdding tests to your requests can help you confirm that your API is working as expected. You can write test scripts in JavaScript and view the output in the \"Test Results\" tab.\n\n<img src=\"https://content.pstmn.io/fa30ea0a-373d-4545-a668-e7b283cca343/aW1hZ2UucG5n\" alt=\"\" height=\"1530\" width=\"2162\">\n\n## 💪 Pro tips\n\n- Use folders to group related requests and organize the collection.\n    \n- Add more [scripts](https://learning.postman.com/docs/writing-scripts/intro-to-scripts/) to verify if the API works as expected and execute workflows.\n    \n\n## 💡Related templates\n\n[API testing basics](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=e9a37a28-055b-49cd-8c7e-97494a21eb54&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)  \n[API documentation](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=e9c28f47-1253-44af-a2f3-20dce4da1f18&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)  \n[Authorization methods](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=31a9a6ed-4cdf-4ced-984c-d12c9aec1c27&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "45700769",
+    "_collection_link": "https://go.postman.co/collection/45700769-4b18ff0b-aff2-4e5f-8f0b-43858d64f4e2?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Universities",
+      "item": [
+        {
+          "name": "Universities List",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n   \"email\":\"abdellahkaddis6@gmail.com\",\n   \"code\":\"560801\"\n}"
+            },
+            "url": {
+              "raw": "https://localhost:5001/api/universities",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "universities"
+              ]
+            },
+            "description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+          },
+          "response": []
+        },
+        {
+          "name": "Get University",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n   \"email\":\"abdellahkaddis6@gmail.com\",\n   \"code\":\"560801\"\n}"
+            },
+            "url": {
+              "raw": "https://localhost:5001/api/universities",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "universities"
+              ]
+            },
+            "description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+          },
+          "response": []
+        },
+        {
+          "name": "Create University",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Successful POST request\", function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+                  "});",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"Name\": \"Université Mohammed V de Rabat\",\n    \"Abbreviation\": \"UM5\",\n    \"Type\": \"Public\",\n    \"City\": \"Rabat\",\n    \"Address\": \"Avenue des Nations Unies, Agdal, Rabat, Maroc\",\n    \"Email\": \"contact@um5.ac.ma\",\n    \"PhoneNumber\": \"+212 537 77 19 30\",\n    \"YearEstablished\": \"1957\",\n    \"LogoUrl\": \"https://www.um5.ac.ma/sites/default/files/logo-um5_0.png\",\n    \"Description\": \"L’Université Mohammed V de Rabat est l’une des plus anciennes et prestigieuses universités du Maroc, offrant une large gamme de programmes dans les domaines des sciences, lettres, droit, économie, ingénierie et médecine.\"\n}\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://localhost:5001/api/universities",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "universities"
+              ]
+            },
+            "description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+          },
+          "response": []
+        },
+        {
+          "name": "Update University",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Successful PUT request\", function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"Université Mohammed V de Rabat\",\n    \"Abbreviation\": \"UM5\",\n    \"Type\": \"Public\",\n    \"City\": \"Rabat\",\n    \"Address\": \"Avenue des Nations Unies, Agdal, Rabat, Maroc\",\n    \"Email\": \"contact@um5.ac.ma\",\n    \"PhoneNumber\": \"+212 537 77 19 30\",\n    \"YearEstablished\": \"1957\",\n    \"LogoUrl\": \"https://www.um5.ac.ma/sites/default/files/logo-um5_0.png\",\n    \"Description\": \"L’Université Mohammed V de Rabat est l’une des plus anciennes et prestigieuses universités du Maroc, offrant une large gamme de programmes dans les domaines des sciences, lettres, droit, économie, ingénierie et médecine.\"\n}\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://localhost:5001/api/universities/0726a577-f318-42a2-c6df-08ddc87d10af",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "universities",
+                "0726a577-f318-42a2-c6df-08ddc87d10af"
+              ]
+            },
+            "description": "This is a PUT request and it is used to overwrite an existing piece of data. For instance, after you create an entity with a POST request, you may want to modify that later. You can do that using a PUT request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful PUT request typically returns a `200 OK`, `201 Created`, or `204 No Content` response code."
+          },
+          "response": []
+        },
+        {
+          "name": "Delete University",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Successful DELETE request\", function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 202, 204]);",
+                  "});",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://localhost:5001/api/universities/0726a577-f318-42a2-c6df-08ddc87d10af",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "universities",
+                "0726a577-f318-42a2-c6df-08ddc87d10af"
+              ]
+            },
+            "description": "This is a DELETE request, and it is used to delete data that was previously created via a POST request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful DELETE request typically returns a `200 OK`, `202 Accepted`, or `204 No Content` response code."
+          },
+          "response": []
+        },
+        {
+          "name": "Check for duplicate values",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n   \"email\":\"abdellahkaddis6@gmail.com\",\n   \"code\":\"560801\"\n}"
+            },
+            "url": {
+              "raw": "https://localhost:5001/api/universities/contact@uca.ma/Université Cadi Ayyad",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "universities",
+                "contact@uca.ma",
+                "Université Cadi Ayyad"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get University By AdminId",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        },
+        {
+          "name": "Get University Stats",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:5001/api/universities/DBC1BFA5-113C-462F-19A6-08DDDB31B599/statistics",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "universities",
+                "DBC1BFA5-113C-462F-19A6-08DDDB31B599",
+                "statistics"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Faculties",
+      "item": [
+        {
+          "name": "Update Faculty",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"faculties des sciences ben msick\",\r\n    \"code\": \"fsbm\",\r\n    \"type\": \"public\",\r\n    \"region\": \"casablanca/settat\",\r\n    \"city\": \"casablanca\",\r\n    \"address\": \"moulay rachid\",\r\n    \"email\": \"fsbm@gmail.com\",\r\n    \"phoneNumber\": \"0011223344\",\r\n    \"establishedYear\": 2000,\r\n    \"deanId\": null\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://localhost:5001/api/universities/976d07c6-26cf-48f5-fd58-08ddd4e6fb8e/faculties/81eb7a4f-79c8-4537-2cbd-08ddd98ff440",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "universities",
+                "976d07c6-26cf-48f5-fd58-08ddd4e6fb8e",
+                "faculties",
+                "81eb7a4f-79c8-4537-2cbd-08ddd98ff440"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Faculty",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:5001/api/universities/976d07c6-26cf-48f5-fd58-08ddd4e6fb8e/faculties/5630f19f-bbc0-4bee-d815-08ddd9932763",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "universities",
+                "976d07c6-26cf-48f5-fd58-08ddd4e6fb8e",
+                "faculties",
+                "5630f19f-bbc0-4bee-d815-08ddd9932763"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "List of University Faculties",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:5001/api/universities/976d07c6-26cf-48f5-fd58-08ddd4e6fb8e/faculties",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "universities",
+                "976d07c6-26cf-48f5-fd58-08ddd4e6fb8e",
+                "faculties"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Faculty For University",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\":\"faculties des sciences ben msick\",\r\n    \"code\":\"fsbm\",\r\n    \"type\":\"public\",\r\n    \"region\":\"casablanca/settat\",\r\n    \"city\":\"casablanca\",\r\n    \"address\":\"moulay rachid\",\r\n    \"email\":\"fsbm@gmail.com\",\r\n    \"phoneNumber\":\"\", //nullable\r\n    \"establishedYear\":\"\", //nullable\r\n    \"deanId\":\"\" //nullable\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://localhost:5001/api/universities/976d07c6-26cf-48f5-fd58-08ddd4e6fb8e/faculties",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "universities",
+                "976d07c6-26cf-48f5-fd58-08ddd4e6fb8e",
+                "faculties"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Faculty",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:5001/api/universities/976d07c6-26cf-48f5-fd58-08ddd4e6fb8e/faculties/81eb7a4f-79c8-4537-2cbd-08ddd98ff440",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "universities",
+                "976d07c6-26cf-48f5-fd58-08ddd4e6fb8e",
+                "faculties",
+                "81eb7a4f-79c8-4537-2cbd-08ddd98ff440"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Faclty By DeanId",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:5001/api/deans/92ea474a-2c9b-4f2b-a059-04530da807f8/faculty",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "deans",
+                "92ea474a-2c9b-4f2b-a059-04530da807f8",
+                "faculty"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "End Dean Assignment",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        },
+        {
+          "name": "Create and Assign Dean",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"firstname\": \"mohammed\",\r\n    \"lastname\": \"kaddis\",\r\n    \"email\": \"abdellahkaddis6@gmail.com\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://localhost:5001/api/faculties/b6beed70-eefa-4113-5cd9-08def54af5c5/dean",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "faculties",
+                "b6beed70-eefa-4113-5cd9-08def54af5c5",
+                "dean"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Departments",
+      "item": [
+        {
+          "name": "Update Department",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"francais\",\r\n    \"code\": \"CH\",\r\n    \"description\": null,\r\n    \"email\": null\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://localhost:5001/api/faculties/aa3290d4-23f5-47ee-234e-08de00d5c94a/departments/695587b5-0f9d-4a11-fb86-08de108cd894",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "faculties",
+                "aa3290d4-23f5-47ee-234e-08de00d5c94a",
+                "departments",
+                "695587b5-0f9d-4a11-fb86-08de108cd894"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Department",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:5001/api/faculties/aa3290d4-23f5-47ee-234e-08de00d5c94a/departments/695587b5-0f9d-4a11-fb86-08de108cd894",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "faculties",
+                "aa3290d4-23f5-47ee-234e-08de00d5c94a",
+                "departments",
+                "695587b5-0f9d-4a11-fb86-08de108cd894"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "List of FacultyDepatments",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:5001/api/universities/976d07c6-26cf-48f5-fd58-08ddd4e6fb8e/faculties",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "universities",
+                "976d07c6-26cf-48f5-fd58-08ddd4e6fb8e",
+                "faculties"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Department For Faculty",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\":\"english\",\r\n    \"code\":\"en\",\r\n    \"description\":null,//nullable\r\n    \"email\":null //nullable\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://localhost:5001/api/faculties/aa3290d4-23f5-47ee-234e-08de00d5c94a/departments",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "faculties",
+                "aa3290d4-23f5-47ee-234e-08de00d5c94a",
+                "departments"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Department",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:5001/api/faculties/aa3290d4-23f5-47ee-234e-08de00d5c94a/departments/695587b5-0f9d-4a11-fb86-08de108cd894",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "faculties",
+                "aa3290d4-23f5-47ee-234e-08de00d5c94a",
+                "departments",
+                "695587b5-0f9d-4a11-fb86-08de108cd894"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Programs",
+      "item": [
+        {
+          "name": "Update Program",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"francais\",\r\n    \"code\": \"CH\",\r\n    \"description\": null,\r\n    \"email\": null\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://localhost:5001/api/faculties/aa3290d4-23f5-47ee-234e-08de00d5c94a/departments/695587b5-0f9d-4a11-fb86-08de108cd894",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "faculties",
+                "aa3290d4-23f5-47ee-234e-08de00d5c94a",
+                "departments",
+                "695587b5-0f9d-4a11-fb86-08de108cd894"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Program",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:5001/api/programs/da672b85-7b5a-472e-c2cc-08de1227ef19",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "programs",
+                "da672b85-7b5a-472e-c2cc-08de1227ef19"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Programs List",
+          "protocolProfileBehavior": {
+            "disabledSystemHeaders": {
+              "accept": true
+            }
+          },
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text",
+                "disabled": true
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text",
+                "disabled": true
+              }
+            ],
+            "url": {
+              "raw": "https://localhost:5001/api/programs",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "programs"
+              ],
+              "query": [
+                {
+                  "key": "facultyId",
+                  "value": "d409436b-7614-45b1-7d43-08de071ac05d",
+                  "disabled": true
+                },
+                {
+                  "key": "departmentId",
+                  "value": "c16921b9-dc9b-4433-644f-08de121d2809",
+                  "type": "text",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Program",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\":\"Program 1\",\r\n    \"code\":\"P1\",\r\n    \"durationInYears\": 3,\r\n    \"description\":null,//nullable\r\n    \"degreeId\":\"5311bd10-4b75-4465-8f70-08de1227dc63\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://localhost:5001/api/departments/091afb5c-bca8-463e-5623-08de0bda898b/programs",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "departments",
+                "091afb5c-bca8-463e-5623-08de0bda898b",
+                "programs"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Program",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:5001/api/faculties/aa3290d4-23f5-47ee-234e-08de00d5c94a/departments/695587b5-0f9d-4a11-fb86-08de108cd894",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "faculties",
+                "aa3290d4-23f5-47ee-234e-08de00d5c94a",
+                "departments",
+                "695587b5-0f9d-4a11-fb86-08de108cd894"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Degrees",
+      "item": [
+        {
+          "name": "Delete Degree",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:5001/api/universities/976d07c6-26cf-48f5-fd58-08ddd4e6fb8e/faculties/5630f19f-bbc0-4bee-d815-08ddd9932763",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "universities",
+                "976d07c6-26cf-48f5-fd58-08ddd4e6fb8e",
+                "faculties",
+                "5630f19f-bbc0-4bee-d815-08ddd9932763"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Degrees List",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:5001/api/universities/dbc1bfa5-113c-462f-19a6-08dddb31b599/degrees",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "universities",
+                "dbc1bfa5-113c-462f-19a6-08dddb31b599",
+                "degrees"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Degree",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\":\"Licence\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://localhost:5001/api/universities/dbc1bfa5-113c-462f-19a6-08dddb31b599/degrees",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "universities",
+                "dbc1bfa5-113c-462f-19a6-08dddb31b599",
+                "degrees"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Degree",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:5001/api/degrees/a43ebc90-cd2e-4e67-0310-08de130593ad",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "degrees",
+                "a43ebc90-cd2e-4e67-0310-08de130593ad"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Degree",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\" : \"T5rbi9a\",\r\n\"universityId\": \"dbc1bfa5-113c-462f-19a6-08dddb31b599\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://localhost:5001/api/degrees/a43ebc90-cd2e-4e67-0310-08de130593ad",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "degrees",
+                "a43ebc90-cd2e-4e67-0310-08de130593ad"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Enrollments",
+      "item": [
+        {
+          "name": "Delete Enrollment",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:5001/api/enrollments/976d07c6-26cf-48f5-fd58-08ddd4e6fb8e",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "enrollments",
+                "976d07c6-26cf-48f5-fd58-08ddd4e6fb8e"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Enrollments List",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:5001/api/enrollments?universityId&facultyId&programId&status&applicantId&academicYear",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "enrollments"
+              ],
+              "query": [
+                {
+                  "key": "universityId",
+                  "value": null
+                },
+                {
+                  "key": "facultyId",
+                  "value": null
+                },
+                {
+                  "key": "programId",
+                  "value": null
+                },
+                {
+                  "key": "status",
+                  "value": null
+                },
+                {
+                  "key": "applicantId",
+                  "value": null
+                },
+                {
+                  "key": "academicYear",
+                  "value": null
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Enrollment",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"applicantId\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\r\n  \"programId\": \"8a3b1c2d-4e5f-6789-abcd-ef0123456789\",\r\n  \"facultyId\": \"7c6b5a4d-3e2f-1a09-b8c7-d6e5f4a3b2c1\",\r\n  \"academicYear\": \"2025/2026\",\r\n  \"status\": \"Active\",\r\n  \"yearLevel\": 1\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://localhost:5001/api/enrollments",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "enrollments"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Enrollment",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:5001/api/enrollments/63877344654",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "enrollments",
+                "63877344654"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Enrollment",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"applicantId\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\r\n  \"programId\": \"8a3b1c2d-4e5f-6789-abcd-ef0123456789\",\r\n  \"facultyId\": \"7c6b5a4d-3e2f-1a09-b8c7-d6e5f4a3b2c1\",\r\n  \"academicYear\": \"2025/2026\",\r\n  \"status\": \"Active\",\r\n  \"yearLevel\": 1\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://localhost:5001/api/enrollments/a43ebc90-cd2e-4e67-0310-08de130593ad",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "enrollments",
+                "a43ebc90-cd2e-4e67-0310-08de130593ad"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Grades",
+      "item": [
+        {
+          "name": "Delete Grade",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:5001/api/grades/976d07c6-26cf-48f5-fd58-08ddd4e6fb8e",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "grades",
+                "976d07c6-26cf-48f5-fd58-08ddd4e6fb8e"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Grade List",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:5001/api/grades?academicYear",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "grades"
+              ],
+              "query": [
+                {
+                  "key": "academicYear",
+                  "value": null
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Grade",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"enrollmentId\": \"d7ddfd10-7f9d-4845-7419-08df15358466\",\r\n  \"courseId\": \"a23f218e-f97b-4494-3a85-08de9ee29916\",\r\n  \"academicYear\": \"2024/2025\",\r\n  \"semester\": \"S1\",\r\n  \"session\": \"Normale\",\r\n  \"score\": 15.75,\r\n  \"gradedByProfessorId\": \"33d671de-56e2-4c59-b17b-e0d90abdf629\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://localhost:5001/api/grades",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "grades"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Grade",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:5001/api/grades/63877344654",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "grades",
+                "63877344654"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Grade",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"academicYear\": \"2024/2025\",\r\n  \"semester\": \"S1\",\r\n  \"session\": \"Normale\",\r\n  \"score\": 15.75,\r\n  \"gradedByProfessorId\": \"33d671de-56e2-4c59-b17b-e0d90abdf629\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://localhost:5001/api/grades/a43ebc90-cd2e-4e67-0310-08de130593ad",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "grades",
+                "a43ebc90-cd2e-4e67-0310-08de130593ad"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Publish Grades",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"courseId\": \"a23f218e-f97b-4494-3a85-08de9ee29916\",\r\n  \"academicYear\": \"2024/2025\",\r\n  \"semester\": \"S1\",\r\n  \"session\": \"Normale\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://localhost:5001/api/grades/publish",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "grades",
+                "publish"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GetSemesterResult",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:5001/api/grades/semester/1111111111111111111111111111?semester=S1",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "grades",
+                "semester",
+                "1111111111111111111111111111"
+              ],
+              "query": [
+                {
+                  "key": "semester",
+                  "value": "S1"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Admissions",
+      "item": [
+        {
+          "name": "Delete Admission",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:5001/api/admissions/431a71ae-a7ed-40bd-48a9-08df0f784e83",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "admissions",
+                "431a71ae-a7ed-40bd-48a9-08df0f784e83"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Admission List",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:5001/api/dbc1bfa5-113c-462f-19a6-08dddb31b599/admissions/?programId=27063171-b3fa-4b7e-d12d-08de13b6c7a3&facultyId=aa3290d4-23f5-47ee-234e-08de00d5c94a",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "dbc1bfa5-113c-462f-19a6-08dddb31b599",
+                "admissions",
+                ""
+              ],
+              "query": [
+                {
+                  "key": "programId",
+                  "value": "27063171-b3fa-4b7e-d12d-08de13b6c7a3"
+                },
+                {
+                  "key": "facultyId",
+                  "value": "aa3290d4-23f5-47ee-234e-08de00d5c94a"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Admission",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"ProgramId\": \"27063171-b3fa-4b7e-d12d-08de13b6c7a3\",\r\n  \"Title\": \"Bachelor of Computer Science\",\r\n  \"AcademicYear\": \"2025-2026\",\r\n  \"StartDate\": \"2025-08-01T00:00:00Z\",\r\n  \"EndDate\": \"2025-08-31T00:00:00Z\",\r\n  \"Process\": \"Online Application\",\r\n  \"Requirements\": [\r\n    {\r\n      \"Name\": \"High School Diploma\",\r\n      \"DisplayOrder\": 1\r\n    },\r\n    {\r\n      \"Name\": \"Entrance Exam Result\",\r\n      \"DisplayOrder\": 2\r\n    },\r\n    {\r\n      \"Name\": \"Two Recommendation Letters\",\r\n      \"DisplayOrder\": 3\r\n    }\r\n  ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://localhost:5001/api/admissions",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "admissions"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Admission",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:5001/api/admissions/431a71ae-a7ed-40bd-48a9-08df0f784e83",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "admissions",
+                "431a71ae-a7ed-40bd-48a9-08df0f784e83"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Admission",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n\r\n    \"programId\": \"27063171-b3fa-4b7e-d12d-08de13b6c7a3\",\r\n    \"title\": \"Bachelor of Computer Science\",\r\n    \"academicYear\": \"2025-2026\",\r\n    \"startDate\": \"2025-08-01T00:00:00Z\",\r\n    \"endDate\": \"2025-08-30T00:00:00Z\",\r\n    \"process\": \"Online Application\",\r\n    \"requirements\": [\r\n        {\r\n            \"id\": \"f9e43af6-070c-440a-0f4d-08df0f7e4dfc\",\r\n            \"admissionId\": \"5ea9378d-d28c-4b0e-0c96-08df0f7e4de4\",\r\n            \"name\": \"High School Diploma\",\r\n            \"displayOrder\": 2\r\n        },\r\n        {\r\n            \"id\": \"3da581fa-233e-4a0d-0f4e-08df0f7e4dfc\",\r\n            \"admissionId\": \"5ea9378d-d28c-4b0e-0c96-08df0f7e4de4\",\r\n            \"name\": \"Entrance Exam Result\",\r\n            \"displayOrder\": 1\r\n        },\r\n        {\r\n            \"id\": \"73f67e16-6e21-44e2-0f4f-08df0f7e4dfc\",\r\n            \"admissionId\": \"5ea9378d-d28c-4b0e-0c96-08df0f7e4de4\",\r\n            \"name\": \"Two Recommendation Letters\",\r\n            \"displayOrder\": 3\r\n        }\r\n    ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://localhost:5001/api/admissions/5ea9378d-d28c-4b0e-0c96-08df0f7e4de4",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "admissions",
+                "5ea9378d-d28c-4b0e-0c96-08df0f7e4de4"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Applicants",
+      "item": [
+        {
+          "name": "Applicant List",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:5001/api/dbc1bfa5-113c-462f-19a6-08dddb31b599/applicants/?status=27063171-b3fa-4b7e-d12d-08de13b6c7a3&facultyId=aa3290d4-23f5-47ee-234e-08de00d5c94a",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "dbc1bfa5-113c-462f-19a6-08dddb31b599",
+                "applicants",
+                ""
+              ],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "27063171-b3fa-4b7e-d12d-08de13b6c7a3"
+                },
+                {
+                  "key": "facultyId",
+                  "value": "aa3290d4-23f5-47ee-234e-08de00d5c94a"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Applicant",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:5001/api/applicants/431a71ae-a7ed-40bd-48a9-08df0f784e83",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "applicants",
+                "431a71ae-a7ed-40bd-48a9-08df0f784e83"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Applicant",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \r\n    \"firstname\": \"Abdellah\",\r\n    \"lastname\": \"Kaddis\",\r\n    \"password\": \"Abdellah1!\",\r\n    \"email\": \"haland@gmail.com\"\r\n\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://localhost:5001/api/applicants",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "applicants"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Courses",
+      "item": [
+        {
+          "name": "Delete Course",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:5001/api/universities/976d07c6-26cf-48f5-fd58-08ddd4e6fb8e/faculties/5630f19f-bbc0-4bee-d815-08ddd9932763",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "universities",
+                "976d07c6-26cf-48f5-fd58-08ddd4e6fb8e",
+                "faculties",
+                "5630f19f-bbc0-4bee-d815-08ddd9932763"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Courses List",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:5001/api/universities/dbc1bfa5-113c-462f-19a6-08dddb31b599/degrees",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "universities",
+                "dbc1bfa5-113c-462f-19a6-08dddb31b599",
+                "degrees"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Course",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"title\" : \"Introduction to Computer Science\",\r\n    \"code\" : \"CS101\",\r\n    \"description\" : \"Fundamental concepts of programming and algorithms using Python.\",//nullable\r\n    \"coefficient\" : 2,\r\n    \"credits\" : 6,\r\n    \"hoursCm\" : 30,//nullable\r\n    \"hoursTd\" : 15,//nullable\r\n    \"hoursTp\" : 15//nullable\r\n\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://localhost:5001/api/courses",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "courses"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Course",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:5001/api/degrees/a43ebc90-cd2e-4e67-0310-08de130593ad",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "degrees",
+                "a43ebc90-cd2e-4e67-0310-08de130593ad"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Course",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\" : \"T5rbi9a\",\r\n\"universityId\": \"dbc1bfa5-113c-462f-19a6-08dddb31b599\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://localhost:5001/api/degrees/a43ebc90-cd2e-4e67-0310-08de130593ad",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "degrees",
+                "a43ebc90-cd2e-4e67-0310-08de130593ad"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Professors",
+      "item": [
+        {
+          "name": "Delete Professor",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:5001/api/professors/07bf9239-d594-487c-b8e0-9d7d193b0aff",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "professors",
+                "07bf9239-d594-487c-b8e0-9d7d193b0aff"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Professor List",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:5001/api/professors?facultyId=aa3290d4-23f5-47ee-234e-08de00d5c94a",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "professors"
+              ],
+              "query": [
+                {
+                  "key": "facultyId",
+                  "value": "aa3290d4-23f5-47ee-234e-08de00d5c94a"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Professor",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"firstName\" : \"Lionel\",\r\n    \"lastName\" : \"messi\",\r\n    \"email\" : \"medesi@gmail.com\",\r\n    \"cin\" : null, // nullable max 10 characters\r\n    \"grade\" : \"AssistantProfessor\",// AssistantProfessor | AssociateProfessor | FullProfessor\r\n    \"isDepartmentHead\" : null, //default false\r\n    \"departmentId\" : \"f10b025c-22cd-472b-5622-08de0bda898b\",\r\n    \"facultyId\" : \"aa3290d4-23f5-47ee-234e-08de00d5c94a\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://localhost:5001/api/professors",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "professors"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Professor",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:5001/api/professors/07bf9239-d594-487c-b8e0-9d7d193b0aff",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "professors",
+                "07bf9239-d594-487c-b8e0-9d7d193b0aff"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Professor",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"firstName\": \"l\",\r\n    \"lastName\": \"messi\",\r\n    \"cin\": \"AA119900\",\r\n    \"grade\": \"Assistant\",\r\n    \"isDepartmentHead\": true,\r\n    \"facultyId\": \"aa3290d4-23f5-47ee-234e-08de00d5c94a\",\r\n    \"departmentId\": \"f10b025c-22cd-472b-5622-08de0bda898b\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://localhost:5001/api/professors/35b81b48-6b89-4798-a281-89f6185c8294",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "professors",
+                "35b81b48-6b89-4798-a281-89f6185c8294"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "ProgramCourses",
+      "item": [
+        {
+          "name": "Delete ProgramCourse",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:5001/api/universities/976d07c6-26cf-48f5-fd58-08ddd4e6fb8e/faculties/5630f19f-bbc0-4bee-d815-08ddd9932763",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "universities",
+                "976d07c6-26cf-48f5-fd58-08ddd4e6fb8e",
+                "faculties",
+                "5630f19f-bbc0-4bee-d815-08ddd9932763"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "ProgramCourse List",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:5001/api/universities/dbc1bfa5-113c-462f-19a6-08dddb31b599/degrees",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "universities",
+                "dbc1bfa5-113c-462f-19a6-08dddb31b599",
+                "degrees"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "ProgramCourse Collection",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:5001/api/programCourses/collection/(4d0c0c4a-3029-42d6-ea24-08de269431ed,d66880fe-059d-4921-ea23-08de269431ed)",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "programCourses",
+                "collection",
+                "(4d0c0c4a-3029-42d6-ea24-08de269431ed,d66880fe-059d-4921-ea23-08de269431ed)"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create ProgramCourse",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"programId\":\"27063171-b3fa-4b7e-d12d-08de13b6c7a3\",\r\n    \"courseId\":\"fa3ca05b-be6e-4bab-b025-08de20f5a90a\",\r\n    \"semester\":1\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://localhost:5001/api/programCourses",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "programCourses"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create ProgramCourse Collection",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "[\r\n    {\r\n    \"programId\":\"27063171-b3fa-4b7e-d12d-08de13b6c7a3\",\r\n    \"courseId\":\"1a99412f-3b41-4657-b027-08de20f5a90a\",\r\n    \"semester\":1\r\n    },\r\n    {\r\n    \"programId\":\"27063171-b3fa-4b7e-d12d-08de13b6c7a3\",\r\n    \"courseId\":\"1a99412f-3b41-4657-b027-08de20f5a90a\",\r\n    \"semester\":1\r\n    }\r\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://localhost:5001/api/programCourses/collection",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "programCourses",
+                "collection"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get ProgramCourse",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:5001/api/degrees/a43ebc90-cd2e-4e67-0310-08de130593ad",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "degrees",
+                "a43ebc90-cd2e-4e67-0310-08de130593ad"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update ProgramCourse",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\" : \"T5rbi9a\",\r\n\"universityId\": \"dbc1bfa5-113c-462f-19a6-08dddb31b599\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://localhost:5001/api/degrees/a43ebc90-cd2e-4e67-0310-08de130593ad",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "degrees",
+                "a43ebc90-cd2e-4e67-0310-08de130593ad"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "ProfessorCourses",
+      "item": [
+        {
+          "name": "Delete ProfessorCourse",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:5001/api/professorCourses/dce7618f-24ad-4808-9b54-08defe394df1",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "professorCourses",
+                "dce7618f-24ad-4808-9b54-08defe394df1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "ProfessorCourse List",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:5001/api/professorCourses?FacultyId=aa3290d4-23f5-47ee-234e-08de00d5c94a",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "professorCourses"
+              ],
+              "query": [
+                {
+                  "key": "FacultyId",
+                  "value": "aa3290d4-23f5-47ee-234e-08de00d5c94a"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create ProfessorCourse",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"professorId\":\"62e9ff59-2339-440c-a51e-cdeb631e4f92\",\r\n    \"courseId\":\"FA3CA05B-BE6E-4BAB-B025-08DE20F5A90A\",\r\n    \"TeachingType\" : \"CM\", // TP, TD, CM\r\n    \"AcademicYear\":\"2026/2027\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://localhost:5001/api/professorCourses",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "professorCourses"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get ProfessorCourse",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:5001/api/professorCourses/dce7618f-24ad-4808-9b54-08defe394df1",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "professorCourses",
+                "dce7618f-24ad-4808-9b54-08defe394df1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update ProfessorCourse",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "    {\r\n        \"professorId\": \"62e9ff59-2339-440c-a51e-cdeb631e4f92\",\r\n        \"courseId\": \"fa3ca05b-be6e-4bab-b025-08de20f5a90a\",\r\n        \"teachingType\": \"TD\",\r\n        \"academicYear\": \"2026/2027\"\r\n    }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://localhost:5001/api/professorCourses/dce7618f-24ad-4808-9b54-08defe394df0",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "professorCourses",
+                "dce7618f-24ad-4808-9b54-08defe394df0"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "FacultyDean",
+      "item": [
+        {
+          "name": "Delete FacultyDean",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:5001/api/universities/976d07c6-26cf-48f5-fd58-08ddd4e6fb8e/faculties/5630f19f-bbc0-4bee-d815-08ddd9932763",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "universities",
+                "976d07c6-26cf-48f5-fd58-08ddd4e6fb8e",
+                "faculties",
+                "5630f19f-bbc0-4bee-d815-08ddd9932763"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "FacultyDean List",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:5001/api/universities/dbc1bfa5-113c-462f-19a6-08dddb31b599/degrees",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "universities",
+                "dbc1bfa5-113c-462f-19a6-08dddb31b599",
+                "degrees"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create FacultyDean",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"deanId\":\"e6121431-ab95-49e0-9687-4ab9687c4959\",\r\n    \"facultyId\" : \"b6beed70-eefa-4113-5cd9-08def54af5c5\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://localhost:5001/api/facultydeans",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "facultydeans"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get FacultyDean",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:5001/api/degrees/a43ebc90-cd2e-4e67-0310-08de130593ad",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "degrees",
+                "a43ebc90-cd2e-4e67-0310-08de130593ad"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Current Faculty Dean",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:5001/api/facultyDeans/current/b6beed70-eefa-4113-5cd9-08def54af5c5",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "facultyDeans",
+                "current",
+                "b6beed70-eefa-4113-5cd9-08def54af5c5"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update FacultyDean",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"deanId\": \"e6121431-ab95-49e0-9687-4ab9687c4959\",\r\n    \"facultyId\": \"b6beed70-eefa-4113-5cd9-08def54af5c5\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://localhost:5001/api/facultyDeans/bac68402-fd71-411a-37f0-08defad46ec5",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "facultyDeans",
+                "bac68402-fd71-411a-37f0-08defad46ec5"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "AUTH - Register UniversityAdmin",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"firstname\": \"Abdellah\",\r\n    \"lastname\": \"Kaddis\",\r\n    \"password\": \"Abdellah1!\",\r\n    \"email\": \"abdellahkaddis8@gmail.com\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://localhost:5001/api/auth/register/university-admin",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "auth",
+                "register",
+                "university-admin"
+              ]
+            },
+            "description": "Gets information about the authenticated user."
+          },
+          "response": []
+        },
+        {
+          "name": "AUTH - Login",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\":\"abdellahkaddis6@gmail.com\",\r\n    \"password\":\"Abdellah1!\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://localhost:5001/api/auth/login",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "AUTH - Check Email",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://localhost:5001/api/auth/check-email/abdellahkaddis6@gmail.com",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "auth",
+                "check-email",
+                "abdellahkaddis6@gmail.com"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "AUTH - Send Verification Code",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n   \"email\":\"abdellahkaddis6@gmail.com\"\n}"
+            },
+            "url": {
+              "raw": "https://localhost:5001/api/auth/verify-email",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "auth",
+                "verify-email"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "AUTH - Confirm Verification Code",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n   \"email\":\"abdellahkaddis6@gmail.com\",\n   \"code\":\"560801\"\n}"
+            },
+            "url": {
+              "raw": "https://localhost:5001/api/auth/confirm-verification",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "auth",
+                "confirm-verification"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "AUTH - Forgot Password - Send Reset Link",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n   \"email\":\"abdellahkaddis6@gmail.com\"\n}"
+            },
+            "url": {
+              "raw": "https://localhost:5001/api/auth/forgot-password",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "auth",
+                "forgot-password"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "AUTH - Reset Password - Confirm New Password",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n   \"email\":\"abdellahkaddis6@gmail.com\",\n   \"token\":\"Q2ZESjhBSk1mT1BMRVc5SHJaaDZoOUNRM0ljbGpBR2FlK2JwV1NldVJaaEozbjFnaHhOaFdCMmhFb2tFOGt3OERJKzN3TGNoRUI0aVRadXdQYjE3NlFVbVNTQ3h2aWRkbTBhanpEWjZIVEo2eEhXajBFUnhuL1Z6V3pwakRpQnpPL1JRWnhpeXE2eDB5UHVFbVdlbkZaY3pIOWhhcGlzZVlFUTBHdjZocFBpcGh1ZnE4R21ENkdZalNaWkNQckcxQWNkYk5uWHpyb21BWGdZWk1yOEJYREVTbGRaVGVPM2ZpaUpmYVJkY2Z3ZGV6U0pC\",\n   \"newpassword\":\"Mohammed1!\"\n}"
+            },
+            "url": {
+              "raw": "https://localhost:5001/api/auth/reset-password",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "auth",
+                "reset-password"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Deactivate User",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:5001/api/auth/users/8408d3ba-14fc-4f1f-8418-fc11db5a30e9/deactivate",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "auth",
+                "users",
+                "8408d3ba-14fc-4f1f-8418-fc11db5a30e9",
+                "deactivate"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Applications",
+      "item": [
+        {
+          "name": "Create Application",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"applicantId\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\r\n  \"programId\": \"8a3b1c2d-4e5f-6789-abcd-ef0123456789\",\r\n  \"grade\": 15.75,\r\n  \"bacSerie\": \"SM\",\r\n  \"bacYear\": 2024,\r\n  \"bacMention\": \"Bien\",\r\n  \"fileUrl\": \"/uploads/applications/d3f1a2b4-9c8e-4f6a-8b7c-1e2d3f4a5b6c.pdf\",\r\n  \"applicant\": {\r\n    \"dob\": \"2006-05-14T00:00:00\",\r\n    \"placeOfBirth\": \"Casablanca\",\r\n    \"gender\": \"M\",\r\n    \"cin\": \"A123456\",\r\n    \"massarCode\": \"R130012345\",\r\n    \"phone\": \"+212612345678\",\r\n    \"photoUrl\": \"/uploads/photos/a1b2c3d4-5e6f-7890-abcd-ef1234567890.jpg\",\r\n    \"status\": \"applicant\",\r\n    \"facultyId\": \"7c6b5a4d-3e2f-1a09-b8c7-d6e5f4a3b2c1\"\r\n  }\r\n}"
+            },
+            "url": {
+              "raw": "https://localhost:5001/api/applications",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "applications"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Application",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:5001/api/applications/333333344555",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "applications",
+                "333333344555"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Application List",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:5001/api/applications?facultyId&programId&applicantId&universityId",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "applications"
+              ],
+              "query": [
+                {
+                  "key": "facultyId",
+                  "value": null
+                },
+                {
+                  "key": "programId",
+                  "value": null
+                },
+                {
+                  "key": "applicantId",
+                  "value": null
+                },
+                {
+                  "key": "universityId",
+                  "value": null,
+                  "type": "text"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Application",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n   \"email\":\"abdellahkaddis6@gmail.com\",\n   \"code\":\"560801\"\n}"
+            },
+            "url": {
+              "raw": "https://localhost:5001/api/applications/2222222",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "applications",
+                "2222222"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update status",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"status\" : \"\", // required  (Submitted|UnderReview|Waitlisted|Approved|Rejected|Accepted|Declined)\r\n    \"reviewerId\":\"\" //nullable\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://localhost:5001/api/applications/111111111111111111111111/status",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "applications",
+                "111111111111111111111111",
+                "status"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Uploads",
+      "item": [
+        {
+          "name": "Upload Image",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "https://localhost:5001/api/uploads/photo",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "uploads",
+                "photo"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Upload pdf",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:5001/api/uploads/pdf",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "uploads",
+                "pdf"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "id",
+      "value": "1"
+    },
+    {
+      "key": "base_url",
+      "value": "https://postman-rest-api-learner.glitch.me/"
+    }
+  ]
+}
