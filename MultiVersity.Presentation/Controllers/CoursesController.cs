@@ -28,7 +28,7 @@ public class CoursesController : ControllerBase
         false);
         return Ok(course);
     }
-
+    [Authorize]
     [HttpPost("/api/faculties/{facultyId}/courses")]
     [ServiceFilter(typeof(ValidationFilterAttribute))]
     public async Task<IActionResult> CreateCourse(Guid facultyId, [FromBody] CourseForCreationDto
@@ -39,14 +39,14 @@ courseForCreationDto)
         return CreatedAtRoute("CourseById", new { id = createdCourse.Id },
         createdCourse);
     }
-
+    [Authorize]
     [HttpDelete("{id:guid}")]
     public async Task<IActionResult> DeleteCourse(Guid id)
     {
         await _service.CourseService.DeleteCourseAsync(id, trackChanges: false);
         return NoContent();
     }
-
+    [Authorize]
     [HttpPut("{id:guid}")]
     [ServiceFilter(typeof(ValidationFilterAttribute))]
     public async Task<IActionResult> UpdateCourse(Guid id, [FromBody] CourseForUpdateDto

@@ -34,4 +34,5 @@ public class Enrollment
     [Range(1, int.MaxValue)]
     public int? YearLevel { get; set; }
     public DateTime EnrolledAt { get; set; } = DateTime.UtcNow;
+    public ICollection<Grade>? Grades { get; set; }
 }

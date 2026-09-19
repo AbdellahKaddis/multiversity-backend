@@ -39,4 +39,5 @@ public class Course
     public Faculty Faculty {  get; set; }
     public ICollection<ProgramCourse>? ProgramCourses { get; set; }
     public ICollection<ProfessorCourse>? ProfessorCourses { get; set; }
+    public ICollection<Grade>? Grades { get; set; }
 }

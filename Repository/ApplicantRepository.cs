@@ -41,6 +41,6 @@ public class ApplicantRepository : RepositoryBase<Applicant>, IApplicantReposito
 
     public async Task<int> GetCountByUniversityAsync(Guid universityId)
     {
-         return await FindByCondition(a => a.Faculty.UniversityId == universityId && (bool)a.User.IsActive && a.Status == "Student", false).CountAsync(); 
+         return await FindByCondition(a => a.Faculty.UniversityId == universityId &&  a.Status == "Enrolled", false).CountAsync(); 
     }
 }

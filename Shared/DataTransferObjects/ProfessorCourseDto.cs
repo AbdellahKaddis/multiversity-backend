@@ -1,5 +1,4 @@
-﻿
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Shared.DataTransferObjects;
 
@@ -11,4 +10,13 @@ public record ProfessorCourseDto(
     string? CourseName,
     string? CourseCode,
     string? TeachingType,
-    string? AcademicYear );
+    string? AcademicYear,
+    string? ProgramName,
+    uint? Semester,
+    int StudentCount,
+    uint? Coefficient,
+    uint? Credits,
+    uint? HoursCM,
+    uint? HoursTD,
+    uint? HoursTP
+);

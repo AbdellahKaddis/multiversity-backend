@@ -20,6 +20,7 @@ namespace Contracts
         IApplicantRepository Applicant { get; }
         IApplicationRepository Application { get; }
         IEnrollmentRepository Enrollment { get; }
+        IGradeRepository Grade { get; }
         Task<IDbContextTransaction> BeginTransactionAsync();
         Task SaveAsync();
 

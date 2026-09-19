@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using MultiVersity.Presentation.ActionFilters;
@@ -34,7 +35,7 @@ public class FacultiesController : ControllerBase
         trackChanges: false);
         return Ok(faculty);
     }
-
+    [Authorize]
     [HttpPost]
     [ServiceFilter(typeof(ValidationFilterAttribute))]
     public async Task<IActionResult> CreateFacultyForUniversity(Guid universityId, [FromBody]
@@ -50,7 +51,7 @@ public class FacultiesController : ControllerBase
         },
         facultyToReturn);
     }
-
+    [Authorize]
     [HttpDelete("{id:guid}")]
     public async Task<IActionResult> DeleteFacultyForUniversity(Guid universityId, Guid id)
     {
@@ -58,7 +59,7 @@ public class FacultiesController : ControllerBase
         false);
         return NoContent();
     }
-
+    [Authorize]
     [HttpPut("{id:guid}")]
     [ServiceFilter(typeof(ValidationFilterAttribute))]
     public async Task<IActionResult> UpdateFacultyForUniversity(Guid universityId, Guid id,
@@ -69,6 +70,8 @@ public class FacultiesController : ControllerBase
          uniTrackChanges: false, facTrackChanges: true);
         return NoContent();
     }
+
+    [Authorize]
     [HttpGet("/api/deans/{deanId}/faculty")]
 
     public async Task<IActionResult> GetFacultyByDeanId(string deanId)
@@ -77,7 +80,7 @@ public class FacultiesController : ControllerBase
         false);
         return Ok(faculty);
     }
-
+    [Authorize]
     [HttpPatch("~/api/faculties/{facultyId}/dean/end")]
     public async Task<IActionResult> EndDeanAssignment(Guid facultyId)
     {
@@ -85,7 +88,7 @@ public class FacultiesController : ControllerBase
 
         return NoContent();
     }
-
+    [Authorize]
     [HttpPost("~/api/faculties/{facultyId}/dean")]
     public async Task<IActionResult> CreateAndAssignDean(Guid facultyId,
     [FromBody] FacultyDeanForRegistrationDto dto)

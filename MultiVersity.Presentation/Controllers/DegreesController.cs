@@ -28,7 +28,7 @@ public class DegreesController : ControllerBase
         var degree = await _service.DegreeService.GetDegreeAsync(id, trackChanges: false);
         return Ok(degree);
     }
-
+    [Authorize]
     [Route("/api/universities/{universityId}/degrees")]
     [HttpPost]
     [ServiceFilter(typeof(ValidationFilterAttribute))]
@@ -40,13 +40,14 @@ public class DegreesController : ControllerBase
         createdDegree);
     }
 
-
+    [Authorize]
     [HttpDelete("{id:guid}")]
     public async Task<IActionResult> DeleteDegree(Guid id)
     {
         await _service.DegreeService.DeleteDegree(id, trackChanges: false);
         return NoContent();
     }
+    [Authorize]
     [HttpPut("{id:guid}")]
     [ServiceFilter(typeof(ValidationFilterAttribute))]
     public async Task<IActionResult> UpdateDegree(Guid id, [FromBody] DegreeForUpdateDto degree)

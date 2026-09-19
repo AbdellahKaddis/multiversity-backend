@@ -15,22 +15,30 @@ public class ProfessorCourseRepository : RepositoryBase<ProfessorCourse>, IProfe
         Create(professorCourse);
     }
 
-    public async Task<IEnumerable<ProfessorCourse>> GetAllProfessorCoursesForFacultyAsync(ProfessorCourseParameters professorCourseParameters, bool trackChanges)
+    public async Task<IEnumerable<ProfessorCourse>> GetAllProfessorCoursesForFacultyAsync(ProfessorCourseParameters p, bool trackChanges)
     {
-        return await FindByCondition(pc => pc.Professor.FacultyId.Equals(professorCourseParameters.FacultyId), trackChanges)
-            .FilterProfessorCourses(professorCourseParameters.ProfessorId, professorCourseParameters.CourseId)
-            .Include(pc => pc.Course)
-            .Include(pc => pc.Professor)
-            .ThenInclude(p => p.User)
-            .ToListAsync();
+        return await FindByCondition(
+            pc => pc.Professor.FacultyId.Equals(p.FacultyId),
+            trackChanges)
+        .FilterProfessorCourses(p.ProfessorId, p.CourseId)
+        .Include(pc => pc.Professor)
+            .ThenInclude(pr => pr.User)
+        .Include(pc => pc.Course)
+            .ThenInclude(c => c.ProgramCourses)
+                .ThenInclude(pgc => pgc.AcademicProgram)
+                    .ThenInclude(ap => ap.Enrollments)
+        .ToListAsync();
     }
 
     public async Task<ProfessorCourse> GetProfessorCourseAsync(Guid id, bool trackChanges)
     {
         return await FindByCondition(pc => pc.Id.Equals(id), trackChanges)
-               .Include(pc => pc.Course)
-            .Include(pc => pc.Professor)
-            .ThenInclude(p => p.User)
+                .Include(pc => pc.Professor)
+            .ThenInclude(pr => pr.User)
+        .Include(pc => pc.Course)
+            .ThenInclude(c => c.ProgramCourses)
+                .ThenInclude(pgc => pgc.AcademicProgram)
+                    .ThenInclude(ap => ap.Enrollments)
             .SingleOrDefaultAsync();
     }
 

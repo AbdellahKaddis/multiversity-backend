@@ -97,12 +97,23 @@ namespace MultiVersity
 
             CreateMap<ProfessorCourseForCreationDto, ProfessorCourse>();
             CreateMap<ProfessorCourse, ProfessorCourseDto>()
-                  .ForCtorParam("ProfessorName",
-                opt => opt.MapFrom(src => src.Professor.User.FirstName + " " + src.Professor.User.LastName))
-
-                    .ForCtorParam("CourseName",opt => opt.MapFrom(src => src.Course.Title))
-
-                      .ForCtorParam("CourseCode", opt => opt.MapFrom(src => src.Course.Code));
+     .ForCtorParam("ProfessorName", o => o.MapFrom(s =>
+         s.Professor.User.FirstName + " " + s.Professor.User.LastName))
+     .ForCtorParam("CourseName", o => o.MapFrom(s => s.Course.Title))
+     .ForCtorParam("CourseCode", o => o.MapFrom(s => s.Course.Code))
+     .ForCtorParam("ProgramName", o => o.MapFrom(s =>
+         s.Course.ProgramCourses.Select(pgc => pgc.AcademicProgram.Name).FirstOrDefault()))
+     .ForCtorParam("Semester", o => o.MapFrom(s =>
+         s.Course.ProgramCourses.Select(pgc => (uint?)pgc.Semester).FirstOrDefault()))
+     .ForCtorParam("StudentCount", o => o.MapFrom(s =>
+         s.Course.ProgramCourses
+             .SelectMany(pgc => pgc.AcademicProgram.Enrollments)
+             .Count(e => e.Status == "Active")))
+     .ForCtorParam("Coefficient", o => o.MapFrom(s => s.Course.Coefficient))
+     .ForCtorParam("Credits", o => o.MapFrom(s => s.Course.Credits))
+     .ForCtorParam("HoursCM", o => o.MapFrom(s => s.Course.HoursCM))
+     .ForCtorParam("HoursTD", o => o.MapFrom(s => s.Course.HoursTD))
+     .ForCtorParam("HoursTP", o => o.MapFrom(s => s.Course.HoursTP));
             CreateMap<ProfessorCourseForUpdateDto, ProfessorCourse>();
 
 
@@ -157,8 +168,21 @@ namespace MultiVersity
             CreateMap<EnrollmentForCreationDto, Enrollment>();
             CreateMap<EnrollmentForUpdateDto, Enrollment>();
 
-
-            
+            CreateMap<Grade, GradeDto>()
+                .ForMember(d => d.StudentFullName, o => o.MapFrom(s =>
+                    s.Enrollment.Applicant.User.FirstName + " " +
+                    s.Enrollment.Applicant.User.LastName))
+                .ForMember(d => d.CourseCode, o => o.MapFrom(s => s.Course.Code))
+                .ForMember(d => d.CourseName, o => o.MapFrom(s => s.Course.Title))
+                .ForMember(d => d.ProgramName, o => o.MapFrom(s => s.Enrollment.Program.Name))
+                .ForMember(d => d.Coefficient, o => o.MapFrom(s => s.Course.Coefficient))
+                .ForMember(d => d.Credits, o => o.MapFrom(s => s.Course.Credits))
+                .ForMember(d => d.ProfessorFullName, o => o.MapFrom(s =>
+                    s.Professor != null
+                        ? s.Professor.User.FirstName + " " + s.Professor.User.LastName
+                        : null));
+            CreateMap<GradeForCreationDto, Grade>();
+            CreateMap<GradeForUpdateDto, Grade>();
 
         }
     }

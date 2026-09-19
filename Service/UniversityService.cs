@@ -104,6 +104,7 @@ public class UniversityService : IUniversityService
         var numberOfFaculties = await _repository.Faculty.GetCountByUniversityAsync(universityId);
         var numberOfPrograms = await _repository.Program.GetCountByUniversityAsync(universityId);
         var numberOfProfessors = await _repository.Professor.GetCountByUniversityAsync(universityId);
-        return new UniversityStatisticsDto(numberOfFaculties, numberOfPrograms, numberOfProfessors);
+        var NumberOfStudents = await _repository.Applicant.GetCountByUniversityAsync(universityId);
+        return new UniversityStatisticsDto(numberOfFaculties, numberOfPrograms, numberOfProfessors, NumberOfStudents);
     }
 }

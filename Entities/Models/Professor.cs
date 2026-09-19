@@ -23,4 +23,5 @@ public class Professor
 
     public Faculty Faculty { get; set; }
     public ICollection<ProfessorCourse>? ProfessorCourses { get; set; }
+    public ICollection<Grade>? Grades { get; set; }
 }

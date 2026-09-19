@@ -111,6 +111,15 @@ public class EnrollmentService : IEnrollmentService
         await _repository.SaveAsync();
     }
 
+    public async Task<IEnumerable<EnrollmentDto>> GetEnrollmentsForCourseAsync(
+    Guid courseId, bool trackChanges)
+    {
+        var enrollments = await _repository.Enrollment
+            .GetEnrollmentsForCourseAsync(courseId, trackChanges);
+
+        return _mapper.Map<IEnumerable<EnrollmentDto>>(enrollments);
+    }
+
     private async Task CheckIfFacultExists(Guid? facultyId, bool trackChanges)
     {
         var faculty = await _repository.Faculty.GetFacultyAsync(facultyId, trackChanges);

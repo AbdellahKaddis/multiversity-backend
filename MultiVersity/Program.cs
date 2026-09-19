@@ -14,6 +14,12 @@ using MultiVersity.Presentation;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
+var profileType = typeof(MultiVersity.MappingProfile);
+Console.WriteLine("=== MappingProfile assembly ===");
+Console.WriteLine(profileType.Assembly.FullName);
+Console.WriteLine(profileType.Assembly.Location);
+
 LogManager.Setup().LoadConfigurationFromFile(
     string.Concat(Directory.GetCurrentDirectory(), "/nlog.config"));
 

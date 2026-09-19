@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MultiVersity.Presentation.ActionFilters;
 using Service.Contracts;
 using Shared.DataTransferObjects;
@@ -31,7 +32,7 @@ public class AcademicProgramsController : ControllerBase
         trackChanges: false);
         return Ok(program);
     }
-
+    [Authorize]
     [HttpPost("/api/departments/{departmentId}/programs")]
     [ServiceFilter(typeof(ValidationFilterAttribute))]
     public async Task<IActionResult> CreateProgramForDepartment(Guid departmentId, [FromBody]
@@ -46,14 +47,14 @@ public class AcademicProgramsController : ControllerBase
         },
         programToReturn);
     }
-
+    [Authorize]
     [HttpDelete("{id:guid}")]
     public async Task<IActionResult> DeleteProgram(Guid id)
     {
         await _service.ProgramService.DeleteProgramAsync(id, trackChanges: false);
         return NoContent();
     }
-
+    [Authorize]
     [HttpPut("{id:guid}")]
     [ServiceFilter(typeof(ValidationFilterAttribute))]
     public async Task<IActionResult> UpdateProgram(Guid id, [FromBody] AcademicProgramForUpdateDto programForUpdateDto)

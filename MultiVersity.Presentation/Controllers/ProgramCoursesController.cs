@@ -31,7 +31,7 @@ public class ProgramCoursesController : ControllerBase
         false);
         return Ok(programCourse);
     }
-
+    [Authorize]
     [HttpPost]
     [ServiceFilter(typeof(ValidationFilterAttribute))]
     public async Task<IActionResult> CreateProgramCourse([FromBody] ProgramCourseForCreationDto
@@ -42,14 +42,14 @@ programCorseForCreationDto)
         return CreatedAtRoute("ProgramCourseById", new { id = createdProgramCourse.Id },
         createdProgramCourse);
     }
-
+    [Authorize]
     [HttpDelete("{id:guid}")]
     public async Task<IActionResult> DeleteProgramCourse(Guid id)
     {
         await _service.ProgramCourseService.RemoveProgramCourseAsync(id, trackChanges: false);
         return NoContent();
     }
-
+    [Authorize]
     [HttpPut("{id:guid}")]
     [ServiceFilter(typeof(ValidationFilterAttribute))]
     public async Task<IActionResult> UpdateProgramCourse(Guid id, [FromBody] ProgramCourseForUpdateDto
@@ -68,7 +68,7 @@ programCourseForUpdateDto)
         false);
         return Ok(programCourses);
     }
-
+    [Authorize]
     [HttpPost("collection")]
     public async Task<IActionResult> CreateProgramCourseCollection
         ([FromBody] IEnumerable<ProgramCourseForCreationDto> programCourseCollection)

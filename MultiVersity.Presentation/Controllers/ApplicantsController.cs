@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MultiVersity.Presentation.ActionFilters;
 using Service.Contracts;
 using Shared.DataTransferObjects;
@@ -12,7 +13,7 @@ public class ApplicantsController : ControllerBase
 {
     private readonly IServiceManager _service;
     public ApplicantsController(IServiceManager service) => _service = service;
-
+    [Authorize]
     [HttpGet("/api/{universityId}/applicants")]
 
     public async Task<IActionResult> GetApplicantss(Guid universityId, [FromQuery] ApplicantParameters applicantParameters)
@@ -21,7 +22,7 @@ public class ApplicantsController : ControllerBase
         _service.ApplicantService.GetApplicantsAsync(universityId, applicantParameters, false);
         return Ok(professors);
     }
-
+    [Authorize]
     [HttpGet("{id}", Name = "GetApplicantById")]
 
     public async Task<IActionResult> GetApplicantById(string id)
@@ -29,7 +30,7 @@ public class ApplicantsController : ControllerBase
         var applicant = await _service.ApplicantService.GetApplicantAsync(id, trackChanges: false);
         return Ok(applicant);
     }
-
+    [Authorize]
     [HttpPost]
     [ServiceFilter(typeof(ValidationFilterAttribute))]
     public async Task<IActionResult> CreateApplicant([FromBody] ApplicantForRegistrationDto applicantForRegistrationDto)

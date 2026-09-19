@@ -14,7 +14,7 @@ public class FacultyDeansConroller : ControllerBase
 {
     private readonly IServiceManager _service;
     public FacultyDeansConroller(IServiceManager service) => _service = service;
-
+    [Authorize]
     [HttpGet()]
     public async Task<IActionResult> GetFacultyDeans([FromQuery] FacultyDeanParameters facultyDeanParameteres)
     {
@@ -22,7 +22,7 @@ public class FacultyDeansConroller : ControllerBase
         _service.FacultyDeanService.GetAllFacultyDeansAsync(facultyDeanParameteres, false);
         return Ok(facultyDeans);
     }
-
+    [Authorize]
     [HttpGet("{id:guid}", Name = "FacultyDeanById")]
 
     public async Task<IActionResult> GetFacultyDean(Guid id)
@@ -31,7 +31,7 @@ public class FacultyDeansConroller : ControllerBase
         false);
         return Ok(facultyDean);
     }
-
+    [Authorize]
     [HttpPost]
     [ServiceFilter(typeof(ValidationFilterAttribute))]
     public async Task<IActionResult> CreateFacultyDean([FromBody] FacultyDeanForCreationDto
@@ -42,14 +42,14 @@ facultyDeanForCreationDto)
         return CreatedAtRoute("FacultyDeanById", new { id = createdFacultyDean.Id },
         createdFacultyDean);
     }
-
+    [Authorize]
     [HttpDelete("{id:guid}")]
     public async Task<IActionResult> DeleteFacultyDean(Guid id)
     {
         await _service.FacultyDeanService.RemoveFacultyDeanAsync(id, trackChanges: false);
         return NoContent();
     }
-
+    [Authorize]
     [HttpPut("{id:guid}")]
     [ServiceFilter(typeof(ValidationFilterAttribute))]
     public async Task<IActionResult> UpdateFacultyDean(Guid id, [FromBody] FacultyDeanForUpdateDto
@@ -60,7 +60,7 @@ facultyDeanForUpdateDto)
         true);
         return NoContent();
     }
-
+    [Authorize]
     [HttpGet("current/{facultyId:guid}")]
     public async Task<IActionResult> GetCurrentFacultyDean(Guid facultyId)
     {

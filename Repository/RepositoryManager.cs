@@ -22,6 +22,8 @@ namespace Repository
         private readonly Lazy<IApplicantRepository> _applicantRepository;
         private readonly Lazy<IApplicationRepository> _applicationRepository;
         private readonly Lazy<IEnrollmentRepository> _enrollmentRepository;
+        private readonly Lazy<IGradeRepository> _gradeRepository;
+     
         public RepositoryManager(RepositoryContext repositoryContext)
         {
 
@@ -70,6 +72,8 @@ namespace Repository
 
             _enrollmentRepository = new Lazy<IEnrollmentRepository>(() => new
           EnrollmentRepository(repositoryContext));
+
+            _gradeRepository = new Lazy<IGradeRepository>(() => new GradeRepository(repositoryContext));
         }
 
         public IUniversityRepository University => _universityRepository.Value;
@@ -87,6 +91,7 @@ namespace Repository
         public IApplicantRepository Applicant => _applicantRepository.Value;
         public IApplicationRepository Application => _applicationRepository.Value;
         public IEnrollmentRepository Enrollment => _enrollmentRepository.Value;
+        public IGradeRepository Grade => _gradeRepository.Value;
         public async Task<IDbContextTransaction> BeginTransactionAsync()
         {
             return await _repositoryContext.Database.BeginTransactionAsync();

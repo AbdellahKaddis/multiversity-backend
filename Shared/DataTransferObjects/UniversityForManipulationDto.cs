@@ -17,7 +17,7 @@ public record UniversityForManipulationDto
     [Required(ErrorMessage = "Email is a required field.")]
     [EmailAddress]
     public string? Email { get; init; }
-    [Phone]
+
     public string? PhoneNumber { get; init; }
     public int? YearEstablished { get; init; }
     public string? LogoUrl { get; init; }

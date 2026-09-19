@@ -15,7 +15,7 @@ public class ApplicationsController : ControllerBase
 {
     private readonly IServiceManager _service;
     public ApplicationsController(IServiceManager service) => _service = service;
-
+    [Authorize]
     [HttpGet("/api/applications")]
 
     public async Task<IActionResult> GetApplications([FromQuery] ApplicationParameters applicationParameters)
@@ -24,7 +24,7 @@ public class ApplicationsController : ControllerBase
         _service.ApplicationService.GetApplicationsAsync(applicationParameters, false);
         return Ok(applications);
     }
-
+    [Authorize]
     [HttpGet("{id}", Name = "GetApplicationById")]
 
     public async Task<IActionResult> GetApplicationById(Guid id)
@@ -32,7 +32,7 @@ public class ApplicationsController : ControllerBase
         var application = await _service.ApplicationService.GetApplicationAsync(id, trackChanges: false);
         return Ok(application);
     }
-
+    [Authorize]
     [HttpPost]
     [ServiceFilter(typeof(ValidationFilterAttribute))]
     public async Task<IActionResult> CreateApplication([FromBody] ApplicationForCreationDto applicationForCreationDto)
@@ -41,7 +41,7 @@ public class ApplicationsController : ControllerBase
         return CreatedAtRoute("GetApplicationById", new { id = createdApplication.Id },
         createdApplication);
     }
-
+    [Authorize]
     [HttpPatch("{id:guid}/status")]
     //[Authorize(Roles = "FacultyAdmin,Dean")]
     public async Task<IActionResult> UpdateApplicationStatus(
@@ -51,7 +51,7 @@ public class ApplicationsController : ControllerBase
         await _service.ApplicationService.UpdateApplicationStatusAsync(id, dto, trackChanges: true);
         return NoContent();
     }
-
+    [Authorize]
     [HttpDelete("{id:guid}")]
     public async Task<IActionResult> DeleteApplication(Guid id)
     {
@@ -59,18 +59,5 @@ public class ApplicationsController : ControllerBase
         return NoContent();
     }
 
-    //[HttpDelete("{id}")]
-    //public async Task<IActionResult> DeleteProfessor(string id)
-    //{
-    //    await _service.ProfessorService.DeleteProfessorAsync(id, trackChanges: false);
-    //    return NoContent();
-    //}
-
-    //[HttpPut("{id}")]
-    //[ServiceFilter(typeof(ValidationFilterAttribute))]
-    //public async Task<IActionResult> UpdateProfessor(string id, [FromBody] ProfessorForUpdateDto professorForUpdateDto)
-    //{
-    //    await _service.ProfessorService.UpdateProfessorAsync(id, professorForUpdateDto, trackChanges: true);
-    //    return NoContent();
-    //}
+   
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MultiVersity.Presentation.ActionFilters;
 using Service.Contracts;
 using Shared.DataTransferObjects;
@@ -30,7 +31,7 @@ public class DepartmentsController : ControllerBase
         trackChanges: false);
         return Ok(department);
     }
-
+    [Authorize]
     [HttpPost]
     [ServiceFilter(typeof(ValidationFilterAttribute))]
     public async Task<IActionResult> CreateDepartmentForFaculty(Guid facultyId, [FromBody]
@@ -46,7 +47,7 @@ public class DepartmentsController : ControllerBase
         },
         departmentToReturn);
     }
-
+    [Authorize]
     [HttpDelete("{id:guid}")]
     public async Task<IActionResult> DeleteDepartmentForFaculty(Guid facultyId, Guid id)
     {
@@ -54,7 +55,7 @@ public class DepartmentsController : ControllerBase
         false);
         return NoContent();
     }
-
+    [Authorize]
     [HttpPut("{id:guid}")]
     [ServiceFilter(typeof(ValidationFilterAttribute))]
     public async Task<IActionResult> UpdateDepartmentForFaculty(Guid facultyId, Guid id,

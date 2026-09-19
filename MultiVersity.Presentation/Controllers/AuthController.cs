@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static Service.Contracts.IAuthService;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MultiVersity.Presentation.Controllers
 {
@@ -109,7 +110,7 @@ namespace MultiVersity.Presentation.Controllers
             }
             return Ok(new { message = "Password reset successfully." });
         }
-
+        [Authorize]
         [HttpPatch("users/{userId}/deactivate")]
         public async Task<IActionResult> DeactivateUser(string userId)
         {

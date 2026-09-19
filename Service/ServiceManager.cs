@@ -4,6 +4,7 @@ using Entities.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using Service.Contracts;
 
 namespace Service
@@ -25,6 +26,7 @@ namespace Service
         private readonly Lazy<IApplicantService> _applicantService;
         private readonly Lazy<IApplicationService> _applicationService;
         private readonly Lazy<IEnrollmentService> _enrollmentService;
+        private readonly Lazy<IGradeService> _gradeService;
 
         public ServiceManager(IRepositoryManager repositoryManager, ILoggerManager
         logger, IMapper mapper, UserManager<User> userManager, IConfiguration configuration,IEmailService emailService, IDistributedCache cache, SignInManager<User> signInManager, IFileStorageService fileStorageService)
@@ -73,6 +75,9 @@ namespace Service
 
             _enrollmentService = new Lazy<IEnrollmentService>(() =>
            new EnrollmentService(repositoryManager, logger, mapper, userManager));
+
+            _gradeService = new Lazy<IGradeService>(() =>
+        new GradeService(repositoryManager, logger, mapper));
         }
         
         public IAuthService AuthenticationService => _authenticationService.Value;
@@ -91,6 +96,8 @@ namespace Service
 
         public IApplicationService ApplicationService => _applicationService.Value;
         public IEnrollmentService EnrollmentService => _enrollmentService.Value;
+
+        public IGradeService GradeService => _gradeService.Value;
 
     }
 }

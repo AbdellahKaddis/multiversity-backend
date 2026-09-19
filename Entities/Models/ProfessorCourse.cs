@@ -9,11 +9,11 @@ public class ProfessorCourse
 
     [Required(ErrorMessage = "ProfessorId is a required field.")]
     public string? ProfessorId { get; set; }
-    public Professor Professor {  get; set; }
+    public Professor Professor { get; set; }
 
     [Required(ErrorMessage = "CourseId is a required field.")]
     public Guid CourseId { get; set; }
-    public Course Course {  get; set; }
+    public Course Course { get; set; }
 
     [Required(ErrorMessage = "TeachingType is a required field.")]
     public string? TeachingType { get; set; }

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MultiVersity.Presentation.ActionFilters;
 using Service.Contracts;
 using Shared.DataTransferObjects;
@@ -30,7 +31,7 @@ public class ProfessorsController : ControllerBase
         false);
         return Ok(professor);
     }
-
+    [Authorize]
     [HttpPost]
     [ServiceFilter(typeof(ValidationFilterAttribute))]
     public async Task<IActionResult> CreateProfessor([FromBody] ProfessorForCreationDto professorForcreationDto)
@@ -39,14 +40,14 @@ public class ProfessorsController : ControllerBase
         return CreatedAtRoute("GetProfessorById", new { id = createdProfessor.Id },
         createdProfessor);
     }
-
+    [Authorize]
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteProfessor(string id)
     {
         await _service.ProfessorService.DeleteProfessorAsync(id, trackChanges: false);
         return NoContent();
     }
-
+    [Authorize]
     [HttpPut("{id}")]
     [ServiceFilter(typeof(ValidationFilterAttribute))]
     public async Task<IActionResult> UpdateProfessor(string id, [FromBody] ProfessorForUpdateDto professorForUpdateDto)

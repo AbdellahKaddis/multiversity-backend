@@ -187,6 +187,16 @@ public class RepositoryContext : IdentityDbContext<User>
         modelBuilder.HasSequence<int>("StudentNumberSeq")
     .StartsAt(1)
     .IncrementsBy(1);
+
+        modelBuilder.Entity<Course>()
+.HasMany(c => c.Grades)
+.WithOne(g => g.Course)
+.OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<Professor>()
+.HasMany(p => p.Grades)
+.WithOne(g => g.Professor)
+.OnDelete(DeleteBehavior.Restrict);
     }
     public DbSet<University>? Universities { get; set; }
     public DbSet<Faculty>? Faculties { get; set; }

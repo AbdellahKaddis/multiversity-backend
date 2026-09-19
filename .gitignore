@@ -12,5 +12,6 @@ obj/
 # Others
 *.log
 *.tmp
+MultiVersity/wwwroot/uploads/
 
 

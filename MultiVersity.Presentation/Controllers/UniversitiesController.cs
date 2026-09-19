@@ -31,6 +31,7 @@ public class UniversitiesController : ControllerBase
         return Ok(university);
     }
 
+ 
     [HttpPost]
     [ServiceFilter(typeof(ValidationFilterAttribute))]
     public async Task<IActionResult> CreateUniversity([FromBody] UniversityForCreationDto university)
@@ -40,6 +41,7 @@ public class UniversitiesController : ControllerBase
         createdUniversity);
     }
 
+    [Authorize]
     [HttpDelete("{id:guid}")]
     public async Task<IActionResult> DeleteUniversity(Guid id)
     {
@@ -47,6 +49,7 @@ public class UniversitiesController : ControllerBase
         return NoContent();
     }
 
+    [Authorize]
     [HttpPut("{id:guid}")]
     [ServiceFilter(typeof(ValidationFilterAttribute))]
     public async Task<IActionResult> UpdateUniversity(Guid id, [FromBody] UniversityForUpdateDto university)
@@ -55,6 +58,7 @@ public class UniversitiesController : ControllerBase
         true);
         return NoContent();
     }
+
     [HttpGet("{email}/{name}")]
     public async Task<IActionResult> CheckForDuplicatesAsync(string email, string name)
     {
@@ -62,7 +66,7 @@ public class UniversitiesController : ControllerBase
         return Ok();
     }
 
-
+    [Authorize]
     [HttpGet("/api/admins/{adminId}/university")]
 
     public async Task<IActionResult> GetUniversityByAdminId(string adminId)

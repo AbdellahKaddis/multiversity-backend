@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using MultiVersity.Presentation.ActionFilters;
@@ -32,7 +33,7 @@ public class AdmissionsController : ControllerBase
         var admission = await _service.AdmissionService.GetAdmissionAsync(id,trackChanges: false);
         return Ok(admission);
     }
-
+    [Authorize]
     [HttpPost]
     [ServiceFilter(typeof(ValidationFilterAttribute))]
     public async Task<IActionResult> CreateAdmissionForProgram([FromBody]
@@ -47,14 +48,14 @@ public class AdmissionsController : ControllerBase
         },
         admissionToReturn);
     }
-
+    [Authorize]
     [HttpDelete("{id:guid}")]
     public async Task<IActionResult> DeleteAdmissionForProgram(Guid id)
     {
         await _service.AdmissionService.DeleteAdmissionForProgramAsync(id, trackChanges:false);
         return NoContent();
     }
-
+    [Authorize]
     [HttpPut("{id:guid}")]
     [ServiceFilter(typeof(ValidationFilterAttribute))]
     public async Task<IActionResult> UpdateAdmissionForProgram(Guid id,

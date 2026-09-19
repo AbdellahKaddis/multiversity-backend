@@ -69,4 +69,15 @@ public class EnrollmentRepository : RepositoryBase<Enrollment>, IEnrollmentRepos
             await _context.Database.CloseConnectionAsync();
         }
     }
+    public async Task<IEnumerable<Enrollment>> GetEnrollmentsForCourseAsync(
+    Guid courseId, bool trackChanges)
+    {
+        return await FindByCondition(e =>
+                e.Status == "Active" &&
+                e.Program.ProgramCourses.Any(pc => pc.CourseId == courseId),
+                trackChanges)
+            .Include(e => e.Applicant.User)
+            .Include(e => e.Program)
+            .ToListAsync();
+    }
 }

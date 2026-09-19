@@ -18,5 +18,7 @@ namespace Service.Contracts
         IApplicantService ApplicantService { get; }
         IApplicationService ApplicationService { get; }
         IEnrollmentService EnrollmentService { get; }
+        IGradeService GradeService { get; }
+
     }
 }

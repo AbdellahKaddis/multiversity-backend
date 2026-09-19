@@ -12,4 +12,6 @@ public interface IEnrollmentRepository
     void CreateEnrollment(Enrollment enrollment);
     void DeleteEnrollment(Enrollment enrollment);
     Task<string> GenerateStudentNumberAsync();
+    Task<IEnumerable<Enrollment>> GetEnrollmentsForCourseAsync(
+    Guid courseId, bool trackChanges);
 }

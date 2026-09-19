@@ -35,20 +35,21 @@ public class ProfessorCourseService : IProfessorCourseService
         return professorCourseToReturn;
     }
 
-    public async Task<IEnumerable<ProfessorCourseDto>> GetAllProfessorCoursesAsync(ProfessorCourseParameters professorCourseParameters, bool trackChanges)
+    public async Task<IEnumerable<ProfessorCourseDto>> GetAllProfessorCoursesAsync(ProfessorCourseParameters p, bool trackChanges)
     {
-        await CheckIfFacultyExists(professorCourseParameters.FacultyId, trackChanges);
+        await CheckIfFacultyExists(p.FacultyId, trackChanges);
 
-        if(professorCourseParameters.ProfessorId is not null)
-            await CheckIfProfessorExists(professorCourseParameters.ProfessorId, false);
+        if(p.ProfessorId is not null)
+            await CheckIfProfessorExists(p.ProfessorId, false);
 
-        if (professorCourseParameters.CourseId is not null)
-            await CheckIfCourseExists((Guid)professorCourseParameters.CourseId, false);
+        if (p.CourseId is not null)
+            await CheckIfCourseExists((Guid)p.CourseId, false);
 
-        var professorCoursesEntities = await _repository.ProfessorCourse.GetAllProfessorCoursesForFacultyAsync(professorCourseParameters, trackChanges);
+        var entities = await _repository.ProfessorCourse
+        .GetAllProfessorCoursesForFacultyAsync(p, trackChanges);
 
-        var professorCoursesDto = _mapper.Map<IEnumerable<ProfessorCourseDto>>(professorCoursesEntities);
-        return professorCoursesDto;
+        var dtos = _mapper.Map<IEnumerable<ProfessorCourseDto>>(entities);
+        return dtos;
     }
 
     public async Task<ProfessorCourseDto> GetProfessorCourseAsync(Guid id, bool trackChanges)

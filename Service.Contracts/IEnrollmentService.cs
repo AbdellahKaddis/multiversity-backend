@@ -11,4 +11,6 @@ public interface IEnrollmentService
     Task<EnrollmentDto> CreateEnrollment(EnrollmentForCreationDto enrollmentForCreationDto);
     Task DeleteEnrollment(Guid enrollmentId, bool trackChanges);
     Task UpdateEnrollment(Guid enrollmentId, EnrollmentForUpdateDto enrollmentForUpdateDto, bool trackChanges);
+    Task<IEnumerable<EnrollmentDto>> GetEnrollmentsForCourseAsync(
+    Guid courseId, bool trackChanges);
 }
